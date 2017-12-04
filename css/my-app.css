@@ -1,0 +1,60 @@
+.vragenlijst {
+    height: auto;
+    width: 45%;
+    margin-right: 5%;
+}
+
+.vraag {
+    width: 40%;
+    margin-right: 5%;
+    margin-left: 5%;
+    word-wrap: break-word;
+    white-space: normal;
+}
+
+.uitkomst {
+    width: 50%;
+    float: left;
+}
+
+.uitkomst i {
+    float: left;
+}
+
+.uitkomst > p:first-of-type {
+    float: left;
+    margin: 5%;
+}
+
+.uitkomst > p:nth-of-type(2) {
+    clear: left;
+
+}
+
+.studentvraag {
+    height: ;
+}
+
+.iconmargin {
+    margin: 5px 5px 5px 0;
+}
+
+.ProfileHeader {
+    height: 50px;
+    margin-left: 37%;
+    margin-right: 37%;
+}
+
+.ProfileImage {
+    margin-left: 37%;
+    margin-right: 37%;
+    margin-top: 3%;
+    display: inline-block;
+    width: 26%;
+    height: 26%;
+    border-radius: 50%;
+
+    background-repeat: no-repeat;
+    background-position: center center;
+    background-size: cover;
+}

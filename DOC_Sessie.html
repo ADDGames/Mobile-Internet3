@@ -1,0 +1,153 @@
+<!-- We don't need full layout here, because this page will be parsed with Ajax-->
+<!-- Top Navbar-->
+<div class="navbar">
+    <div class="navbar-inner">
+        <div class="left"><a href="#" class="back link"> <i class="icon icon-back"></i><span>Back</span></a></div>
+        <div class="center">Then Question me!</div>
+        <div class="right">
+           <a href="Profile.html"><i class="icon f7-icons">settings</i></a>
+        </div>
+    </div>
+</div>
+
+<div class="pages">
+    <!-- Page, data-page contains page name-->
+    <div data-page="Then ? me" class="page">
+        <!-- Scrollable page content-->
+        <div class="page-content">
+            <div class="content-block-title">
+                <p>SESSIE X</p>
+            </div>
+            <div class="content-block">
+                <!-- Buttons row as tabs controller -->
+                <div class="buttons-row">
+                    <!-- Link to 1st tab, active -->
+                    <a href="#tab1" class="tab-link active button">Mijn vragen</a>
+                    <!-- Link to 2nd tab -->
+                    <a href="#tab2" class="tab-link button">Studenten vragen</a>
+                </div>
+            </div>
+            <!-- Tabs, tabs wrapper -->
+            <div class="tabs">
+                <!-- Tab 1, active by default -->
+                <div id="tab1" class="tab active">
+                    <div class="content-block-title">Vragen</div>
+                    <div class="list-block accordion-list">
+                        <ul>
+                            <li class="accordion-item">
+                                <a href="#" class="item-content item-link">
+                                    <div class="item-inner">
+                                        <div class="item-title">Vraag 1</div>
+                                    </div>
+                                </a>
+                                <div class="accordion-item-content">
+                                    <div class="content-block uitkomst">
+                                        <i class="f7-icons">check_round_fill</i>
+                                        <p>Percentage JA</p>
+                                        <p>Personen die ja zeiden</p>
+                                    </div>
+                                    <div class="content-block uitkomst">
+                                        <i class="f7-icons">close_round_fill</i>
+                                        <p>Percentage NEEN</p>
+                                        <p>Personen die Neen zeiden</p>
+                                    </div>
+                                </div>
+                            </li>
+                            <li class="accordion-item">
+                                <a href="#" class="item-content item-link">
+                                    <div class="item-inner">
+                                        <div class="item-title">Vraag 2</div>
+                                    </div>
+                                </a>
+                                <div class="accordion-item-content">
+                                    <div class="content-block uitkomst">
+                                        <i class="f7-icons">check_round_fill</i>
+                                        <p>Percentage JA</p>
+                                        <p>Personen die ja zeiden</p>
+                                    </div>
+                                    <div class="content-block uitkomst">
+                                        <i class="f7-icons">close_round_fill</i>
+                                        <p>Percentage NEEN</p>
+                                        <p>Personen die Neen zeiden</p>
+                                    </div>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                    <div> <a href="#" class="floating-button floating-button-to-popover open-popover"><i class="icon f7-icons icon-plus"></i></a></div>
+                    <div class="popover demo-popover">
+                        <div class="popover-inner">
+                            <div class="content-block-title">Ja/Nee vraag toevoegen</div>
+                            <!-- This block will be inset only on tablets -->
+                            <form id="my-form" class="list-block">
+                                <div class="item-content">
+                                    <ul>
+                                        <li>
+                                            <div class="item-inner">
+                                                <div class="item-media"><i class="icon f7-icons">chats</i></div>
+                                                <div class="item-inner">
+                                                    <div class="item-input">
+                                                        <input type="text" placeholder="Vraag">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </form>
+                            <div class="content-block">
+                                <a href="#" class="button form-to-data">Voeg vraag toe</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Tab 2 -->
+                <div id="tab2" class="tab">
+                    <div class="card">
+                        <div class="card-content">
+                            <div class="card-content-inner">
+                                <div class="list-block media-list">
+                                    <ul>
+                                        <li class="item-content studentvraag">
+                                            <div class="item-inner">
+                                                <div class="item-title-row">
+                                                    <div class="item-title">Vraag 1</div>
+                                                    <div class="item-media"><a><i class="icon f7-icons">trash</i></a></div>
+                                                </div>
+                                                <div class="item-subtitle">Student X</div>
+                                                <textarea placeholder="Antwoorden"></textarea>
+                                                <button><i class="icon f7-icons iconmargin">arrow_up_fill</i>Upload antwoord</button>
+                                            </div>
+                                        </li>
+                                        <li class="item-content studentvraag">
+                                            <div class="item-inner">
+                                                <div class="item-title-row">
+                                                    <div class="item-title">Vraag 2</div>
+                                                    <div class="item-media"><a><i class="icon f7-icons">trash</i></a></div>
+                                                </div>
+                                                <div class="item-subtitle">Student X</div>
+                                                <textarea placeholder="Antwoorden"></textarea><button><i class="icon f7-icons iconmargin">arrow_up_fill</i>Upload antwoord</button>
+                                            </div>
+                                        </li>
+                                        <li class="item-content studentvraag">
+                                            <div class="item-inner">
+                                                <div class="item-title-row">
+                                                    <div class="item-title">Vraag 3</div>
+                                                    <div class="item-media"><a><i class="icon f7-icons">trash</i></a></div>
+                                                </div>
+                                                <div class="item-subtitle">Student X</div>
+                                                <textarea placeholder="Antwoorden"></textarea>
+                                                <button><i class="icon f7-icons iconmargin">arrow_up_fill</i>Upload antwoord</button>
+                                            </div>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
