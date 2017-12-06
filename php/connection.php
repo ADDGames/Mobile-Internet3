@@ -4,6 +4,5 @@
     $dbpass = '';
 
     $db = '';
-    $con = mysql_connect($dbhost, $dbuser, $dbpass);
-    mysql_select_db($db);
+    $con = mysqli_connect($dbhost, $dbuser, $dbpass, $db) or die('{"error":"Connection failed","status":"fail"}');;
 ?>
