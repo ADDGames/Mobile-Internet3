@@ -72,3 +72,16 @@ $$('#signInbutton').on('click', function (){
     alert('There is no stored data for this form yet. Try to change any field')
   }
 });
+var boolLeerkracht = false;
+
+$$("#signupLeerkracht").on("change",function(){
+
+    if ($$("#LeerkrachtCode").attr('disabled')) {
+      $$("#LeerkrachtCode").attr('disabled', 'disabled');
+      boolLeerkracht = true;
+    }
+    else  {
+      $$("#LeerkrachtCode").removeAttr('disabled');
+      boolLeerkracht = false;
+    }
+});
