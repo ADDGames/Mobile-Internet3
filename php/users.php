@@ -14,7 +14,13 @@
             $function = $_POST['function'];
         }
     }
-    if (!isset($function)) {
+
+    if ($table === null || $table === '') {
+        if (isset($_POST['table'])) {
+            $table = $_POST['table'];
+        }
+    }
+    if (!isset($function) || !isset($table)) {
         if (!empty($postvars)) {
         } else {
             if ($_SERVER['REQUEST_METHOD'] == 'POST') {
