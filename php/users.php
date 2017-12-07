@@ -126,6 +126,7 @@
         } elseif ($table === "student") {
             # code...
         } elseif ($table === "gebruiker") {
+            $GEB_id = null;
             $GEB_username = null;
             $GEB_wachtwoord = null;
             if (isset($_POST['username']) && isset($_POST['wachtwoord'])) {
@@ -137,10 +138,42 @@
             } else {
                 die('{"error":"missing data","status":"fail"}');
             }
-            $query = "SELECT GEB_id, GEB_username, GEB_wachtwoord FROM gebruiker WHERE GEB_username = $GEB_username";
+            $query = "SELECT GEB_id, GEB_username, GEB_wachtwoord FROM gebruiker WHERE GEB_username = '$GEB_username' AND GEB_wachtwoord = '$GEB_wachtwoord'";
             $result = mysqli_query($query);
             $row = mysqli_fetch_assoc($result);
-            $docent = ["DOC_id" => $row['DOC_id'],"DOC_naam" => $row['DOC_naam'],"DOC_GEB_id" => $row['DOC_GEB_id'],"GEB_username" => $row['GEB_username'],"GEB_naam" => $row['GEB_naam'],"GEB_voornaam" => $row['GEB_voornaam'],"GEB_wachtwoord" => $row['GEB_wachtwoord'],"GEB_email" => $row['GEB_email']];
+            if ($row) {
+                $GEB_id = $row['GEB_id'];
+            } else {
+                die('{"error":"username/password incorrect","status":"fail"}');
+            }
+            mysqli_free_result($result);
+            $login = false;
+            $docent = false;
+            $student = false;
+            $query = "SELECT DOC_id FROM docent WHERE DOC_GEB_id = '$GEB_id'";
+            $result = mysqli_query($query);
+            $row = mysqli_fetch_assoc($result);
+            if ($row) {
+                $docent = true;
+            }
+            mysqli_free_result($result);
+            $query = "SELECT STU_id FROM student WHERE STU_GEB_id = '$GEB_id'";
+            $result = mysqli_query($query);
+            $row = mysqli_fetch_assoc($result);
+            if ($row) {
+                $student = true;
+            }
+            if (($docent && $student) || (!$docent && !$student)) {
+                die('{"error":"Er is een probleem met uw gebruiker, contacteer de administrator om dit op te lossen","status":"fail"}');
+            } else {
+                if (!$docent && $student) {
+                    $user = ["GEB_id" => $GEB_id,"username" => $GEB_username, "type" => "student"];
+                    die('{"data":'.json_encode($user).',"status":"ok"}');
+                } elseif ($docent && !$student) {
+                    $user = ["GEB_id" => $GEB_id,"username" => $GEB_username, "type" => "docent"];
+                    die('{"data":'.json_encode($user).',"status":"ok"}');
+                }
+            }
             mysqli_free_result($result);
             mysqli_close($con);
             die('{"data":'.json_encode($docent).',"status":"ok"}');
