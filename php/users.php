@@ -21,24 +21,20 @@
         }
     }
     if (!isset($function) || !isset($table)) {
-        if (!empty($postvars)) {
-        } else {
+        if (empty($postvars)) {
             if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                 die('{"POST":' . json_encode($_POST) . ',"postvars":'. json_encode($postvars) .'}');
             } else {
                 die('{"error":"Geen POST request","status":"fail"}');
             }
         }
-    }
-    if (isset($function) && isset($table)) {
+    } else {
         if ($table !== 'docent' && $table !== 'student') {
             die('{"error":"wrong table","status":"fail"}');
         }
         if ($function !== 'add' && $function !== 'getone' && $function !== 'getall' && $function !== 'change') {
             die('{"error":"wrong function","status":"fail"}');
         }
-    } else {
-        die('{"error":"missing data","table":"'. $table. '", "function":"' . $function . '","status":"fail"}');
     }
 
     require_once '../include/connection.php';
