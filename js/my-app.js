@@ -53,8 +53,22 @@ $$('.form-to-data').on('click', function () {
     alert(JSON.stringify(formData));
 });
 
+$$('#registreerbutton').on('click', function (){
+    var dataregistreer = myApp.formGetData('form-registreer');
+    if(dataregistreer) {
+      alert(JSON.stringify(dataregistreer));
+    }
+    else {
+      alert('There is no stored data for this form yet. Try to change any field')
+    }
+});
 
-
-$$('#signIn-button').on('click', function () {
-    myApp.loginScreen('#signup1');
+$$('#signInbutton').on('click', function (){
+  var datalogin = myApp.formGetData('form-login');
+  if(datalogin) {
+    alert(JSON.stringify(datalogin));
+  }
+  else {
+    alert('There is no stored data for this form yet. Try to change any field')
+  }
 });
