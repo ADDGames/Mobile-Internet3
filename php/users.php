@@ -1,6 +1,6 @@
 <?php
     header('Access-Control-Allow-Origin: *');
-    header('Access-Control-Allow-Methods: GET, PUT, POST, DELETE, OPTIONS');
+    header('Access-Control-Allow-Methods: POST');
     header('Access-Control-Max-Age: 1000');
     header('Access-Control-Allow-Headers: Content-Type, Authorization, X-Requested-With');
 
@@ -66,6 +66,8 @@
                 $DOC_GEB_id = $row['GEB_id'];
                 $query = "INSERT INTO `docent`(`DOC_naam`, `DOC_gebruiker_id`) VALUES (`$GEB_naam`,$DOC_GEB_id)";
                 $con->query($query);
+                mysqli_free_result($result);
+                mysqli_close($con);
                 die('{"data":"ok","message":"Record added successfully","status":"ok"}');
             } elseif ($function === "getone") {
                 $DOC_id = null;
@@ -81,6 +83,8 @@
                 $result = mysqli_query($query);
                 $row = mysqli_fetch_assoc($result);
                 $docent = ["DOC_id" => $row['DOC_id'],"DOC_naam" => $row['DOC_naam'],"DOC_GEB_id" => $row['DOC_GEB_id'],"GEB_username" => $row['GEB_username'],"GEB_naam" => $row['GEB_naam'],"GEB_voornaam" => $row['GEB_voornaam'],"GEB_wachtwoord" => $row['GEB_wachtwoord'],"GEB_email" => $row['GEB_email']];
+                mysqli_free_result($result);
+                mysqli_close($con);
                 die('{"data":'.json_encode($docent).',"status":"ok"}');
             } elseif ($function === "getall") {
                 $docenten = [];
@@ -91,6 +95,8 @@
                     array_push($docenten, ["index" => $index, "values" => ["DOC_id" => $row['DOC_id'],"DOC_naam" => $row['DOC_naam'],"DOC_GEB_id" => $row['DOC_GEB_id'],"GEB_username" => $row['GEB_username'],"GEB_naam" => $row['GEB_naam'],"GEB_voornaam" => $row['GEB_voornaam'],"GEB_wachtwoord" => $row['GEB_wachtwoord'],"GEB_email" => $row['GEB_email']]]);
                     $index++;
                 }
+                mysqli_free_result($result);
+                mysqli_close($con);
                 die('{"data":'.json_encode($docenten).',"status":"ok"}');
             } elseif ($function === "change") {
                 $column = $_POST['column'];
@@ -106,6 +112,7 @@
                     die('{"error":"wrong column","status":"fail"}');
                 }
                 $con->query($query);
+                mysqli_close($con);
                 die('{"data":"ok","message":"Record changed successfully","status":"ok"}');
             }
         }
