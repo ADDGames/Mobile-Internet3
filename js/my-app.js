@@ -52,3 +52,9 @@ $$('.form-to-data').on('click', function () {
     var formData = myApp.formToData('#vraag_form');
     alert(JSON.stringify(formData));
 });
+
+
+
+$$('#signIn-button').on('click', function () {
+    myApp.loginScreen('#signup1');
+});
