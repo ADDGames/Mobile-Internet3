@@ -29,3 +29,25 @@
             }
         }
         require_once '../include/connection.php';
+        if (!$con) {
+            die('{"error":"Connection failed","mysqlError":"' . json_encode($con -> error) .'","status":"fail"}');
+        } else {
+            $login = false;
+            $docent = false;
+            $student = false;
+            if (!$login) {
+                die('{"error":"Geen match gevonden","status":"fail"}');
+            } else {
+                if (($docent && $student) || (!$docent && !$student)) {
+                    die('{"error":"Er is een probleem met uw gebruiker, contacteer de administrator om dit op te lossen","status":"fail"}');
+                } else {
+                    if (!$docent && $student) {
+                        $user = ["username" => $username, "type" => "student"];
+                        die('{"data":'.json_encode($user).',"status":"ok"}');
+                    } elseif ($docent && !$student) {
+                        $user = ["username" => $username, "type" => "docent"];
+                        die('{"data":'.json_encode($user).',"status":"ok"}');
+                    }
+                }
+            }
+        }
