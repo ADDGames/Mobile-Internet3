@@ -13,6 +13,7 @@
     <link rel="stylesheet" href="css/framework7-icons.css">
     <!-- Path to your custom app styles-->
     <link rel="stylesheet" href="css/my-app.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 </head>
 
 <body>
@@ -113,8 +114,6 @@
             </div>
         </div>
     </div>
-
-
     <!-- Views-->
     <div class="views">
         <!-- Your main view, should have "view-main" class-->
@@ -122,9 +121,7 @@
             <!-- Top Navbar-->
             <div class="navbar">
                 <div class="navbar-inner">
-                    <div class="left">
-                        <a href="#" class="link icon-only open-panel"> <i class="icon icon-bars"></i></a>
-                    </div>
+                    <div class="left"> <a href="#" class="link icon-only open-panel"> <i class="icon icon-bars"></i></a> </div>
                     <div class="center">Then Question me!</div>
                 </div>
             </div>
@@ -156,9 +153,7 @@
                                 <li>
                                     <a href="#" class="item-link">
                                         <div class="item-content">
-                                            <div class="item-inner">
-                                                <a id="signup-button" href="#" class="open-popup" data-popup="#signup" >Registreer</a>
-                                            </div>
+                                            <div class="item-inner"> <a id="signup-button" href="#" class="open-popup" data-popup="#signup">Registreer</a> </div>
                                         </div>
                                     </a>
                                 </li>
@@ -168,111 +163,92 @@
                 </div>
             </div>
             <!-- Bottom Toolbar-->
-            <div class="toolbar toolbar-bottom">
-
-            </div>
+            <div class="toolbar toolbar-bottom"> </div>
         </div>
     </div>
-
     <div class="popup popup-signup login-screen" id="login">
         <div class="view">
-          <div class="pages">
-            <div class="page">
-                <div class="page-content login-screen-content">
-                    <div class="login-screen-title">Then question me</div>
-                    <form id="form-login">
-                        <div class="list-block">
-                            <ul>
-                                <li class="item-content">
-                                    <div class="item-inner">
-                                        <div class="item-title label">Gebruikersnaam</div>
-                                        <div class="item-input">
-                                            <input id="login-gebruikersnaam" type="text" name="username" placeholder="U gebruikersnaam">
+            <div class="pages">
+                <div class="page">
+                    <div class="page-content login-screen-content">
+                        <div class="login-screen-title">Then question me</div>
+                        <form id="form-login">
+                            <div class="list-block">
+                                <ul>
+                                    <li class="item-content">
+                                        <div class="item-inner">
+                                            <div class="item-title label">Gebruikersnaam</div>
+                                            <div class="item-input"> <input id="login-gebruikersnaam" type="text" name="username" placeholder="U gebruikersnaam"> </div>
                                         </div>
-                                    </div>
-                                </li>
-                                <li class="item-content">
-                                    <div class="item-inner">
-                                        <div class="item-title label">Wachtwoord</div>
-                                        <div class="item-input">
-                                            <input id="login-wachtwoord" type="password" name="password" placeholder="U wachtwoord">
+                                    </li>
+                                    <li class="item-content">
+                                        <div class="item-inner">
+                                            <div class="item-title label">Wachtwoord</div>
+                                            <div class="item-input"> <input id="login-wachtwoord" type="password" name="password" placeholder="U wachtwoord"> </div>
                                         </div>
-                                    </div>
-                                </li>
-                            </ul>
-                        </div>
-                        <div class="list-block">
-                            <ul>
-                                <li><a id="signInbutton" href="#" class="item-link list-button get-storage-data">Sign In</a></li>
-                            </ul>
-                            <div class="list-block-label">
-                                <p>New member? Sign in for free!</p>
-                                <a href="#" class="open-popup" data-popup="#signup" >Nieuw lid</a>
-                                <p><a href="#" class="close-login-screen">Sluit Login scherm</a></p>
+                                    </li>
+                                </ul>
                             </div>
-                        </div>
-                    </form>
+                            <div class="list-block">
+                                <ul>
+                                    <li><a id="signInbutton" class="item-link list-button">Sign In</a></li>
+                                </ul>
+                                <div class="list-block-label">
+                                    <p>New member? Sign in for free!</p> <a href="#" class="open-popup" data-popup="#signup">Nieuw lid</a>
+                                    <p><a href="#" class="close-login-screen">Sluit Login scherm</a></p>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
                 </div>
             </div>
         </div>
-      </div>
     </div>
-
     <div id="signup" class="popup popup-signup login-screen">
         <div class="view">
-          <div class="pages">
-            <div class="page">
-                <div class="page-content login-screen-content">
-                    <div class="login-screen-title">Then question me</div>
-                    <form id="form-registreer">
-                        <div class="list-block">
-                            <ul>
-                                <li class="item-content">
-                                    <div class="item-inner">
-                                        <div class="item-title label">Name</div>
-                                        <div class="item-input">
-                                            <input id="signup-naam" type="text" name="username" placeholder="U naam">
+            <div class="pages">
+                <div class="page">
+                    <div class="page-content login-screen-content">
+                        <div class="login-screen-title">Then question me</div>
+                        <form id="form-registreer">
+                            <div class="list-block">
+                                <ul>
+                                    <li class="item-content">
+                                        <div class="item-inner">
+                                            <div class="item-title label">Name</div>
+                                            <div class="item-input"> <input id="signup-naam" type="text" name="username" placeholder="U naam"> </div>
                                         </div>
-                                    </div>
-                                </li>
-                                <li class="item-content">
-                                    <div class="item-inner">
-                                        <div class="item-title label">Achternaam</div>
-                                        <div class="item-input">
-                                            <input id="signup-achternaam" type="text" name="username" placeholder="U achternaam">
+                                    </li>
+                                    <li class="item-content">
+                                        <div class="item-inner">
+                                            <div class="item-title label">Achternaam</div>
+                                            <div class="item-input"> <input id="signup-achternaam" type="text" name="username" placeholder="U achternaam"> </div>
                                         </div>
-                                    </div>
-                                </li>
-                                <li class="item-content">
-                                    <div class="item-inner">
-                                        <div class="item-title label">E-mail</div>
-                                        <div class="item-input">
-                                            <input id="signup-email" type="text" name="username" placeholder="U e-mail">
+                                    </li>
+                                    <li class="item-content">
+                                        <div class="item-inner">
+                                            <div class="item-title label">E-mail</div>
+                                            <div class="item-input"> <input id="signup-email" type="text" name="username" placeholder="U e-mail"> </div>
                                         </div>
-                                    </div>
-                                </li>
-                                <li class="item-content">
-                                    <div class="item-inner">
-                                        <div class="item-title label">Gebruikersnaam</div>
-                                        <div class="item-input">
-                                            <input id="signup-gebruikersnaam" type="text" name="username" placeholder="U Gebruikersnaam">
+                                    </li>
+                                    <li class="item-content">
+                                        <div class="item-inner">
+                                            <div class="item-title label">Gebruikersnaam</div>
+                                            <div class="item-input"> <input id="signup-gebruikersnaam" type="text" name="username" placeholder="U Gebruikersnaam"> </div>
                                         </div>
-                                    </div>
-                                </li>
-                                <li class="item-content">
-                                    <div class="item-inner">
-                                        <div class="item-title label">Wachtwoord</div>
-                                        <div class="item-input">
-                                            <input id="signup-wachtwoord1" type="password" name="password" placeholder="U wachtwoord">
+                                    </li>
+                                    <li class="item-content">
+                                        <div class="item-inner">
+                                            <div class="item-title label">Wachtwoord</div>
+                                            <div class="item-input"> <input id="signup-wachtwoord1" type="password" name="password" placeholder="U wachtwoord"> </div>
                                         </div>
-                                    </div>
-                                </li>
-                                <li class="item-content">
-                                    <div class="item-inner">
-                                        <div class="item-title label">Bevestig wachtwoord</div>
-                                        <div class="item-input">
-                                            <input id="signup-wachtwoord2" type="password" name="password" placeholder="U wachtwoord">
+                                    </li>
+                                    <li class="item-content">
+                                        <div class="item-inner">
+                                            <div class="item-title label">Bevestig wachtwoord</div>
+                                            <div class="item-input"> <input id="signup-wachtwoord2" type="password" name="password" placeholder="U wachtwoord"> </div>
                                         </div>
+<<<<<<< HEAD
                                     </div>
                                 </li>
                                 <li>
@@ -291,7 +267,7 @@
                                       <div class="item-inner">
                                           <div class="item-title label">Code</div>
                                           <div class="item-input">
-                                              <input id="LeerkrachtCode" type="password" name="code" placeholder="Leerkracht code" disabled>
+                                              <input id="LeerkrachtCode" type="password" name="code" placeholder="Leerkracht Code" disabled>
                                           </div>
                                       </div>
                                   </li>
@@ -303,10 +279,21 @@
                             </ul>
                             <div class="list-block-label">
                               <p><a href="#" class="close-login-screen">Sluit scherm</a></p>
+=======
+                                    </li>
+                                </ul>
+>>>>>>> e8c5747ea7dafd73c5c9df446dffd77688bc22d9
                             </div>
-                        </div>
-                    </form>
-                  </div>
+                            <div class="list-block">
+                                <ul>
+                                    <li><a id="#registreerbutton" href="#" class="item-link list-button get-storage-data">Registreer</a></li>
+                                </ul>
+                                <div class="list-block-label">
+                                    <p><a href="#" class="close-login-screen">Sluit scherm</a></p>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
                 </div>
             </div>
         </div>
