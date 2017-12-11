@@ -33,7 +33,7 @@ $$('#registreerbutton').on('click', function () {
 		alert('There is no stored data for this form yet. Try to change any field')
 	}
 });
-<<<<<<< HEAD
+
 
 var boolLeerkracht = false;
 
@@ -48,7 +48,7 @@ $$("#signupLeerkracht").on("change",function(){
       boolLeerkracht = false;
     }
 });
-=======
+
 $$('#signInbutton').on('click', function () {
 	var inputdata = {
 		function: 'login',
@@ -84,4 +84,3 @@ $$('#signInbutton').on('click', function () {
 		}
 	});
 });
->>>>>>> e8c5747ea7dafd73c5c9df446dffd77688bc22d9
