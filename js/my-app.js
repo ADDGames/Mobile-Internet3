@@ -24,7 +24,6 @@ function createContentPage() {
 $$('.form-to-data').on('click', function () {
 	var formData = myApp.formToData('#vraag_form');
 	alert(JSON.stringify(formData));
-<<<<<<< HEAD
 });
 $$('#registreerbutton').on('click', function () {
 	var dataregistreer = myApp.formGetData('form-registreer');
@@ -84,7 +83,6 @@ $$('#signInbutton').on('click', function () {
 			alert(errorThrown);
 		}
 	});
-=======
 });
 $$('#registreerbutton').on('click', function () {
 	var dataregistreer = myApp.formGetData('form-registreer');
@@ -93,7 +91,6 @@ $$('#registreerbutton').on('click', function () {
 	} else {
 		alert('There is no stored data for this form yet. Try to change any field')
 	}
->>>>>>> e8c5747ea7dafd73c5c9df446dffd77688bc22d9
 });
 $$('#signInbutton').on('click', function () {
 	var inputdata = {
