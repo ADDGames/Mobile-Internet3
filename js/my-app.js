@@ -24,6 +24,7 @@ function createContentPage() {
 $$('.form-to-data').on('click', function () {
 	var formData = myApp.formToData('#vraag_form');
 	alert(JSON.stringify(formData));
+<<<<<<< HEAD
 });
 $$('#registreerbutton').on('click', function () {
 	var dataregistreer = myApp.formGetData('form-registreer');
@@ -49,6 +50,51 @@ $$("#signupLeerkracht").on("change",function(){
     }
 });
 
+$$('#signInbutton').on('click', function () {
+	var inputdata = {
+		function: 'login',
+		table: 'gebruiker',
+		username: $("#login-gebruikersnaam").val(),
+		wachtwoord: $("#login-wachtwoord").val()
+	};
+	$.post({
+		url: "php/users.php",
+		data: inputdata,
+		success: function (response) {
+			response = JSON.parse(response);
+			if(response.status === "fail") {
+				alert(response.error);
+			} else {
+				if(response.data.type === "student") {
+					mainView.router.load({
+						url: "STU_Vakken.html"
+					});
+					myApp.closeModal();
+				} else if(response.data.type === "docent") {
+					mainView.router.load({
+						url: "DOC_Vakken.html"
+					});
+					myApp.closeModal();
+				}
+			}
+		},
+		error: function (jqXHR, textStatus, errorThrown) {
+			alert(jqXHR);
+			alert(textStatus);
+			alert(errorThrown);
+		}
+	});
+=======
+});
+$$('#registreerbutton').on('click', function () {
+	var dataregistreer = myApp.formGetData('form-registreer');
+	if(dataregistreer) {
+		alert(JSON.stringify(dataregistreer));
+	} else {
+		alert('There is no stored data for this form yet. Try to change any field')
+	}
+>>>>>>> e8c5747ea7dafd73c5c9df446dffd77688bc22d9
+});
 $$('#signInbutton').on('click', function () {
 	var inputdata = {
 		function: 'login',
