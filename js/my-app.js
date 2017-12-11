@@ -33,63 +33,14 @@ $$('#registreerbutton').on('click', function () {
 		alert('There is no stored data for this form yet. Try to change any field')
 	}
 });
-
-
 var boolLeerkracht = false;
-
-$$("#signupLeerkracht").on("change",function(){
-
-    if ($$("#LeerkrachtCode").attr('disabled')) {
-      $$("#LeerkrachtCode").attr('disabled', 'disabled');
-      boolLeerkracht = true;
-    }
-    else  {
-      $$("#LeerkrachtCode").removeAttr('disabled');
-      boolLeerkracht = false;
-    }
-});
-
-$$('#signInbutton').on('click', function () {
-	var inputdata = {
-		function: 'login',
-		table: 'gebruiker',
-		username: $("#login-gebruikersnaam").val(),
-		wachtwoord: $("#login-wachtwoord").val()
-	};
-	$.post({
-		url: "php/users.php",
-		data: inputdata,
-		success: function (response) {
-			response = JSON.parse(response);
-			if(response.status === "fail") {
-				alert(response.error);
-			} else {
-				if(response.data.type === "student") {
-					mainView.router.load({
-						url: "STU_Vakken.html"
-					});
-					myApp.closeModal();
-				} else if(response.data.type === "docent") {
-					mainView.router.load({
-						url: "DOC_Vakken.html"
-					});
-					myApp.closeModal();
-				}
-			}
-		},
-		error: function (jqXHR, textStatus, errorThrown) {
-			alert(jqXHR);
-			alert(textStatus);
-			alert(errorThrown);
-		}
-	});
-});
-$$('#registreerbutton').on('click', function () {
-	var dataregistreer = myApp.formGetData('form-registreer');
-	if(dataregistreer) {
-		alert(JSON.stringify(dataregistreer));
+$$("#signupLeerkracht").on("change", function () {
+	if($$("#LeerkrachtCode").attr('disabled')) {
+		$$("#LeerkrachtCode").attr('disabled', 'disabled');
+		boolLeerkracht = true;
 	} else {
-		alert('There is no stored data for this form yet. Try to change any field')
+		$$("#LeerkrachtCode").removeAttr('disabled');
+		boolLeerkracht = false;
 	}
 });
 $$('#signInbutton').on('click', function () {
