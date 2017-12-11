@@ -74,7 +74,7 @@
                 $query = "SELECT * FROM code";
                 $result = mysqli_query($con, $query);
                 while ($row = mysqli_fetch_array($result)) {
-                    if($row['DOC_id'] === $DOC_code){
+                    if($row['COD_code'] === $DOC_code){
                         $code_id = $row['COD_id'];
                         break;
                     }
