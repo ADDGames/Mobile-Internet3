@@ -46,17 +46,12 @@
 }
 
 .ProfileImage {
-    margin-left: 37%;
-    margin-right: 37%;
+    height: 80px;
+    width: 80px;
+    margin-left: 42%;
+    margin-right: 42%;
     margin-top: 3%;
-    display: inline-block;
-    width: 26%;
-    height: 26%;
     border-radius: 50%;
-
-    background-repeat: no-repeat;
-    background-position: center center;
-    background-size: cover;
 }
 
 #login, #signup {
