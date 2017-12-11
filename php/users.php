@@ -3,18 +3,15 @@
     header('Access-Control-Allow-Methods: POST');
     header('Access-Control-Max-Age: 1000');
     header('Access-Control-Allow-Headers: Content-Type, Authorization, X-Requested-With');
-
     $body = file_get_contents('php://input');
     $postvars = json_decode($body, true);
     $function = $postvars["function"];
     $table = $postvars["table"];
-
     if ($function === null || $function === '') {
         if (isset($_POST['function'])) {
             $function = $_POST['function'];
         }
     }
-
     if ($table === null || $table === '') {
         if (isset($_POST['table'])) {
             $table = $_POST['table'];
@@ -42,9 +39,7 @@
             }
         }
     }
-
     require_once 'connection.php';
-
     if (!$con) {
         die('{"error":"Connection failed","mysqlError":"' . json_encode($con -> error) .'","status":"fail"}');
     } else {
@@ -86,7 +81,7 @@
                 $result = mysqli_query($con, $query);
                 $row = mysqli_fetch_assoc($result);
                 $DOC_GEB_id = $row['GEB_id'];
-                $query = "INSERT INTO `docent`(`DOC_naam`, `DOC_gebruiker_id`, `DOC_COD_id`) VALUES (`$GEB_naam`,$DOC_GEB_id,$code_id)";
+                $query = "INSERT INTO `docent`(`DOC_gebruiker_id`, `DOC_COD_id`) VALUES ($DOC_GEB_id,$code_id)";
                 $con->query($query);
                 mysqli_free_result($result);
                 mysqli_close($con);
@@ -138,7 +133,35 @@
                 die('{"data":"ok","message":"Record changed successfully","status":"ok"}');
             }
         } elseif ($table === "student") {
-            # code...
+            if ($function === "add") {
+                $GEB_username = null;
+                $GEB_naam = null;
+                $GEB_voornaam = null;
+                $GEB_wachtwoord = null;
+                $GEB_email = null;
+                $STU_GEB_id = null;
+                if (isset($_POST['username']) && isset($_POST['naam']) && isset($_POST['voornaam']) && isset($_POST['wachtwoord']) && isset($_POST['email'])) {
+                    $GEB_username = $_POST['username'];
+                    $GEB_naam = $_POST['naam'];
+                    $GEB_voornaam = $_POST['voornaam'];
+                    $GEB_wachtwoord = $_POST['wachtwoord'];
+                    $GEB_email = $_POST['email'];
+                    if ($GEB_username === "" || $GEB_naam === "" || $GEB_voornaam === "" || $GEB_wachtwoord === "" || $GEB_email === "") {
+                        die('{"error":"missing data","status":"fail"}');
+                    }
+                } else {
+                    die('{"error":"missing data","status":"fail"}');
+                }
+                $query = "INSERT INTO `gebruiker`(`GEB_username`, `GEB_naam`, `GEB_voornaam`, `GEB_wachtwoord`, `GEB_email`) OUTPUT INSERTED.GEB_id VALUES (`$GEB_username`,`$GEB_naam`,`$GEB_voornaam`,`$GEB_wachtwoord`,`$GEB_email`)";
+                $result = mysqli_query($con, $query);
+                $row = mysqli_fetch_assoc($result);
+                $STU_GEB_id = $row['GEB_id'];
+                $query = "INSERT INTO `student`(`STU_GEB_id`) VALUES ($STU_GEB_id)";
+                $con->query($query);
+                mysqli_free_result($result);
+                mysqli_close($con);
+                die('{"data":"ok","message":"Record added successfully","status":"ok"}');
+            }
         } elseif ($table === "gebruiker") {
             $GEB_id = null;
             $GEB_username = null;
