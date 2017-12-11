@@ -34,30 +34,37 @@ $$('#registreerbutton').on('click', function () {
 	}
 });
 $$('#signInbutton').on('click', function () {
-	/*var datalogin = myApp.formGetData('form-login');
-  if(datalogin) {
-    alert(JSON.stringify(datalogin));
-  }
-  else {
-    alert('There is no stored data for this form yet. Try to change any field')
-}*/
 	var inputdata = {
 		function: 'login',
 		table: 'gebruiker',
 		username: $("#login-gebruikersnaam").val(),
-		wachtwoord: $("#login-wachtwoord").val(),
+		wachtwoord: $("#login-wachtwoord").val()
 	};
-	alert(inputdata);
 	$.post({
-			url: "users.php",
-			data: inputdata,
-			success: function (response) {
-				alert(response);
-			},
-			error: function (jqXHR, textStatus, errorThrown) {
-				alert(jqXHR);
-				alert(textStatus);
-				alert(errorThrown));
+		url: "php/users.php",
+		data: inputdata,
+		success: function (response) {
+			response = JSON.parse(response);
+			if(response.status === "fail") {
+				alert(response.error);
+			} else {
+				if(response.data.type === "student") {
+					mainView.router.load({
+						url: "STU_Vakken.html"
+					});
+					myApp.closeModal();
+				} else if(response.data.type === "docent") {
+					mainView.router.load({
+						url: "DOC_Vakken.html"
+					});
+					myApp.closeModal();
+				}
+			}
+		},
+		error: function (jqXHR, textStatus, errorThrown) {
+			alert(jqXHR);
+			alert(textStatus);
+			alert(errorThrown);
 		}
 	});
 });
