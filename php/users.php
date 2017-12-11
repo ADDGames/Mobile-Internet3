@@ -57,7 +57,7 @@
                 $GEB_email = null;
                 $DOC_code = null;
                 $DOC_GEB_id = null;
-                if (isset($_POST['username']) && isset($_POST['naam']) && isset($_POST['voornaam']) && isset($_POST['wachtwoord']) && isset($_POST['email'])) {
+                if (isset($_POST['username']) && isset($_POST['naam']) && isset($_POST['voornaam']) && isset($_POST['wachtwoord']) && isset($_POST['email']) isset($_POST['code'])) {
                     $GEB_username = $_POST['username'];
                     $GEB_naam = $_POST['naam'];
                     $GEB_voornaam = $_POST['voornaam'];
