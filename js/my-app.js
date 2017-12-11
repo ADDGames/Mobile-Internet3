@@ -33,13 +33,15 @@ $$('#registreerbutton').on('click', function () {
 		alert('There is no stored data for this form yet. Try to change any field')
 	}
 });
+
 var boolLeerkracht = false;
 $$("#signupLeerkracht").on("change", function () {
-	if($$("#LeerkrachtCode").attr('disabled')) {
-		$$("#LeerkrachtCode").attr('disabled', 'disabled');
+	if($$("#LeerkrachtCode").prop('disabled')) {
+		$$("#LeerkrachtCode").prop('disabled', false);
 		boolLeerkracht = true;
 	} else {
-		$$("#LeerkrachtCode").removeAttr('disabled');
+		$$("#LeerkrachtCode").prop('disabled', true);
+		$$("#LeerkrachtCode").val('');
 		boolLeerkracht = false;
 	}
 });
