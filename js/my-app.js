@@ -25,14 +25,7 @@ $$('.form-to-data').on('click', function () {
 	var formData = myApp.formToData('#vraag_form');
 	alert(JSON.stringify(formData));
 });
-$$('#registreerbutton').on('click', function () {
-	var dataregistreer = myApp.formGetData('form-registreer');
-	if(dataregistreer) {
-		alert(JSON.stringify(dataregistreer));
-	} else {
-		alert('There is no stored data for this form yet. Try to change any field')
-	}
-});
+
 
 var boolLeerkracht = false;
 $$("#signupLeerkracht").on("change", function () {
