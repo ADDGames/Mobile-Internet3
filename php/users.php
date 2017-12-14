@@ -52,7 +52,7 @@
                 $GEB_email = null;
                 $DOC_code = null;
                 $DOC_GEB_id = null;
-                if (isset($_POST['username']) && isset($_POST['naam']) && isset($_POST['voornaam']) && isset($_POST['wachtwoord']) && isset($_POST['email']) isset($_POST['code'])) {
+                if (isset($_POST['username']) && isset($_POST['naam']) && isset($_POST['voornaam']) && isset($_POST['wachtwoord']) && isset($_POST['email']) && isset($_POST['code'])) {
                     $GEB_username = $_POST['username'];
                     $GEB_naam = $_POST['naam'];
                     $GEB_voornaam = $_POST['voornaam'];
@@ -109,7 +109,7 @@
                 $result = mysqli_query($con, $query);
                 $index = 0;
                 while ($row = mysqli_fetch_array($result)) {
-                    array_push($docenten, ["index" => $index, "values" => ["DOC_id"] => $row['DOC_id'],"DOC_naam" => $row['DOC_naam'],"DOC_GEB_id" => $row['DOC_GEB_id'],"GEB_username" => $row['GEB_username'],"GEB_naam" => $row['GEB_naam'],"GEB_voornaam" => $row['GEB_voornaam'],"GEB_wachtwoord" => $row['GEB_wachtwoord'],"GEB_email" => $row['GEB_email']]]);
+                    array_push($docenten, ["index" => $index, "values" => ["DOC_id" => $row['DOC_id'],"DOC_naam" => $row['DOC_naam'],"DOC_GEB_id" => $row['DOC_GEB_id'],"GEB_username" => $row['GEB_username'],"GEB_naam" => $row['GEB_naam'],"GEB_voornaam" => $row['GEB_voornaam'],"GEB_wachtwoord" => $row['GEB_wachtwoord'],"GEB_email" => $row['GEB_email']]]);
                     $index++;
                 }
                 mysqli_free_result($result);

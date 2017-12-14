@@ -81,7 +81,7 @@ $$('#signInbutton').on('click', function () {
 	});
 });
 
-
+/*
 $$('#registreerbutton').on('click', function () {
 		if($$("#LeerkrachtCode").prop('disabled')) {
 			//student
@@ -106,9 +106,6 @@ $$('#registreerbutton').on('click', function () {
 									url: "index.html"
 								});
 								myApp.closeModal();
-								myApp.onPageInit('index', function (page) {
-  							console.log('Index page openen???');
-  						console.log(page);
 							})
 						}
 					},
@@ -164,3 +161,4 @@ $$('#registreerbutton').on('click', function () {
 
 		}
 });
+*/
