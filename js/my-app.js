@@ -80,3 +80,87 @@ $$('#signInbutton').on('click', function () {
 		}
 	});
 });
+
+
+$$('#registreerbutton').on('click', function () {
+		if($$("#LeerkrachtCode").prop('disabled')) {
+			//student
+			var inputdata = {
+				function: 'login',
+				table: 'student',
+				Snaam:  $("#signup-naam").val(),
+				Sachternaam:  $("#signup-achternaam").val(),
+				Snaam:  $("#signup-naam").val(),
+				email: $("#signup-email").val(),
+				wachtwoord: $("#signup-wachtwoord").val()
+			};
+				$.post({
+					url: "php/users.php",
+					data: inputdata,
+					success: function (response) {
+						response = JSON.parse(response);
+						if(response.status === "fail") {
+							alert(response.error);
+						} else {
+								mainView.router.load({
+									url: "index.html"
+								});
+								myApp.closeModal();
+								myApp.onPageInit('index', function (page) {
+  							console.log('Index page openen???');
+  						console.log(page);
+							})
+						}
+					},
+					error: function (jqXHR, textStatus, errorThrown) {
+						alert(jqXHR);
+						alert(textStatus);
+						alert(errorThrown);
+					}
+				});
+
+		} else {
+			//docent
+			var inputdata = {
+				function: 'login',
+				table: 'docent',
+				naam:  $("#signup-naam").val(),
+				achternaam:  $("#signup-achternaam").val(),
+				naam:  $("#signup-naam").val(),
+				email: $("#signup-email").val(),
+				wachtwoord: $("#signup-wachtwoord").val(),
+				code: $("#LeerkrachtCode").val()
+			};
+
+				$.post({
+					url: "php/users.php",
+					data: inputdata,
+					success: function (response) {
+						response = JSON.parse(response);
+						if(response.status === "fail") {
+							alert(response.error);
+						} else {
+							if(response.data.type === "student") {
+								mainView.router.load({
+									url: "STU_Vakken.html"
+								});
+								myApp.closeModal();
+							} else if(response.data.type === "docent") {
+								mainView.router.load({
+									url: "DOC_Vakken.html"
+								});
+								myApp.closeModal();
+							}
+						}
+					},
+					error: function (jqXHR, textStatus, errorThrown) {
+						alert(jqXHR);
+						alert(textStatus);
+						alert(errorThrown);
+					}
+				});
+
+
+
+		}
+});
