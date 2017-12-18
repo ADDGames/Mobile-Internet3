@@ -69,21 +69,19 @@
                 $query = "SELECT * FROM code";
                 $result = mysqli_query($con, $query);
                 while ($row = mysqli_fetch_array($result)) {
-                    if($row['COD_code'] === $DOC_code){
+                    if ($row['COD_code'] === $DOC_code) {
                         $code_id = $row['COD_id'];
                         break;
                     }
                 }
-                if($code_id === null){
+                if ($code_id === null) {
                     die('{"error":"foute code","status":"fail"}');
                 }
-                $query = "INSERT INTO `gebruiker`(`GEB_username`, `GEB_naam`, `GEB_voornaam`, `GEB_wachtwoord`, `GEB_email`) OUTPUT INSERTED.GEB_id VALUES (`$GEB_username`,`$GEB_naam`,`$GEB_voornaam`,`$GEB_wachtwoord`,`$GEB_email`)";
+                $query = "INSERT INTO `gebruiker` (`GEB_username`, `GEB_naam`, `GEB_voornaam`, `GEB_wachtwoord`, `GEB_email`) VALUES ('$GEB_username','$GEB_naam','$GEB_voornaam','$GEB_wachtwoord','$GEB_email')";
                 $result = mysqli_query($con, $query);
-                $row = mysqli_fetch_assoc($result);
-                $DOC_GEB_id = $row['GEB_id'];
+                $DOC_GEB_id = $con -> insert_id;
                 $query = "INSERT INTO `docent`(`DOC_gebruiker_id`, `DOC_COD_id`) VALUES ($DOC_GEB_id,$code_id)";
                 $con->query($query);
-                mysqli_free_result($result);
                 mysqli_close($con);
                 die('{"data":"ok","message":"Record added successfully","status":"ok"}');
             } elseif ($function === "getone") {
@@ -152,13 +150,11 @@
                 } else {
                     die('{"error":"missing data","status":"fail"}');
                 }
-                $query = "INSERT INTO `gebruiker`(`GEB_username`, `GEB_naam`, `GEB_voornaam`, `GEB_wachtwoord`, `GEB_email`) OUTPUT INSERTED.GEB_id VALUES (`$GEB_username`,`$GEB_naam`,`$GEB_voornaam`,`$GEB_wachtwoord`,`$GEB_email`)";
+                $query = "INSERT INTO `gebruiker` (`GEB_username`, `GEB_naam`, `GEB_voornaam`, `GEB_wachtwoord`, `GEB_email`) VALUES ('$GEB_username','$GEB_naam','$GEB_voornaam','$GEB_wachtwoord','$GEB_email')";
                 $result = mysqli_query($con, $query);
-                $row = mysqli_fetch_assoc($result);
-                $STU_GEB_id = $row['GEB_id'];
+                $STU_GEB_id = $con -> insert_id;
                 $query = "INSERT INTO `student`(`STU_GEB_id`) VALUES ($STU_GEB_id)";
                 $con->query($query);
-                mysqli_free_result($result);
                 mysqli_close($con);
                 die('{"data":"ok","message":"Record added successfully","status":"ok"}');
             }
