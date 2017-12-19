@@ -21,6 +21,45 @@ function createContentPage() {
 	mainView.router.loadContent('<!-- Top Navbar-->' + '<div class="navbar">' + '  <div class="navbar-inner">' + '    <div class="left"><a href="#" class="back link"><i class="icon icon-back"></i><span>Back</span></a></div>' + '    <div class="center sliding">Dynamic Page ' + (++dynamicPageIndex) + '</div>' + '  </div>' + '</div>' + '<div class="pages">' + '  <!-- Page, data-page contains page name-->' + '  <div data-page="dynamic-pages" class="page">' + '    <!-- Scrollable page content-->' + '    <div class="page-content">' + '      <div class="content-block">' + '        <div class="content-block-inner">' + '          <p>Here is a dynamic page created on ' + new Date() + ' !</p>' + '          <p>Go <a href="#" class="back">back</a> or go to <a href="services.html">Services</a>.</p>' + '        </div>' + '      </div>' + '    </div>' + '  </div>' + '</div>');
 	return;
 }
+
+/*
+function vakkenladen() {
+        var input = {
+					table = 'vak'
+				};
+				$.post({
+					url: "php/vak.php",
+					data: inputdata,
+					success: function (response) {
+						response = JSON.parse(response);
+						if(response.status === "fail") {
+							alert(response.error);
+						} else {
+							alert('ok');
+						}
+					},
+					error: function (jqXHR, textStatus, errorThrown) {
+						alert(jqXHR);
+						alert(textStatus);
+						alert(errorThrown);
+					}
+				});
+}
+*/
+
+
+function profielLaden(data){
+		$testnaam = data;
+		//document.getElementById('ProfileNaam').innerText = "ELLEN test" ;
+		console.log('test2');
+		$$('#ProfileNaam').append('XXXXXXXXXXXXXXXXXXXXX');
+		console.log('test3');
+
+}
+
+
+
+
 $$('.form-to-data').on('click', function () {
 	var formData = myApp.formToData('#vraag_form');
 	alert(JSON.stringify(formData));
@@ -58,11 +97,15 @@ $$('#signInbutton').on('click', function () {
 						url: "STU_Vakken.html"
 					});
 					myApp.closeModal();
+					profielLaden(inputdata);
+					console.log('test1');
+					//vakkenladen();
 				} else if(response.data.type === "docent") {
 					mainView.router.load({
 						url: "DOC_Vakken.html"
 					});
 					myApp.closeModal();
+					//vakkenladen();
 				}
 			}
 		},
@@ -112,26 +155,3 @@ $$('#registreerbutton').on('click', function () {
 		alert('wachtwoord is niet gelijk');
 	}
 });
-
-function vakkenladen() {
-        var input = {
-					table =
-				};
-				$.post({
-					url: "php/vak.php",
-					data: inputdata,
-					success: function (response) {
-						response = JSON.parse(response);
-						if(response.status === "fail") {
-							alert(response.error);
-						} else {
-							alert('ok');
-						}
-					},
-					error: function (jqXHR, textStatus, errorThrown) {
-						alert(jqXHR);
-						alert(textStatus);
-						alert(errorThrown);
-					}
-				});
-}
