@@ -112,3 +112,26 @@ $$('#registreerbutton').on('click', function () {
 		alert('wachtwoord is niet gelijk');
 	}
 });
+
+function vakkenladen() {
+        var input = {
+					table =
+				};
+				$.post({
+					url: "php/vak.php",
+					data: inputdata,
+					success: function (response) {
+						response = JSON.parse(response);
+						if(response.status === "fail") {
+							alert(response.error);
+						} else {
+							alert('ok');
+						}
+					},
+					error: function (jqXHR, textStatus, errorThrown) {
+						alert(jqXHR);
+						alert(textStatus);
+						alert(errorThrown);
+					}
+				});
+}
