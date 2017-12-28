@@ -3,12 +3,19 @@
     header('Access-Control-Allow-Methods: POST');
     header('Access-Control-Max-Age: 1000');
     header('Access-Control-Allow-Headers: Content-Type, Authorization, X-Requested-With');
+
+    //-----variabelen ophalen uit input-file (android)-----
     $body = file_get_contents('php://input');
     $postvars = json_decode($body, true);
     $function = $postvars["function"];
     $table = $postvars["table"];
+
+    //-----variabelen vullen uit POST Request-----
+    //check if input-file niets op heeft gehaald of een leeg veld heeft ingevoerd per variabele
     if ($function === null || $function === '') {
+        //check of POST Request van 'function' niet leeg is (isset == is ingevuld)
         if (isset($_POST['function'])) {
+            //variabele vullen met POST als isset === true
             $function = $_POST['function'];
         }
     }
@@ -17,8 +24,12 @@
             $table = $_POST['table'];
         }
     }
+
+    //-----checken of $function en $table gevuld zijn
     if (!isset($function) || !isset($table)) {
+        //checken of $postvars leeg is
         if (empty($postvars)) {
+            //checken of POST (Niet GET,PUT,DELETE,...)
             if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                 die('{"POST":' . json_encode($_POST) . ',"postvars":'. json_encode($postvars) .'}');
             } else {
@@ -26,25 +37,34 @@
             }
         }
     } else {
+        //checken of $tabel 1 van de gekozen tabellen is
         if ($table !== 'docent' && $table !== 'student' && $table !== 'gebruiker') {
             die('{"error":"wrong table","status":"fail"}');
         }
+        //checken of $tabel 'docent/student' is (anders gebruiker)
         if ($table === 'docent' || $table === 'student') {
+            //checken of $function 1 van de gekozen functies is
             if ($function !== 'add' && $function !== 'getone' && $function !== 'getall' && $function !== 'change') {
                 die('{"error":"wrong function","status":"fail"}');
             }
         } else {
+            //checken of $function 1 van de gekozen functies is
             if ($function !== 'login' && $function !== 'registeer') {
                 die('{"error":"wrong function","status":"fail"}');
             }
         }
     }
+    //-----connection maken met server (hosting)-----
+    //import van connection naar database
     require_once 'connection.php';
+    //checken of connection werkt
     if (!$con) {
         die('{"error":"Connection failed","mysqlError":"' . json_encode($con -> error) .'","status":"fail"}');
     } else {
+        //checken of $table voor docent aan te passen is (in database zal gebruiker en docent aangepast worden)
         if ($table === "docent") {
             if ($function === "add") {
+                //voordefinitie van de nodige variabelen
                 $GEB_username = null;
                 $GEB_naam = null;
                 $GEB_voornaam = null;
@@ -52,13 +72,16 @@
                 $GEB_email = null;
                 $DOC_code = null;
                 $DOC_GEB_id = null;
+                //check of POST Request van alle variabelen niet leeg zijn
                 if (isset($_POST['username']) && isset($_POST['naam']) && isset($_POST['voornaam']) && isset($_POST['wachtwoord']) && isset($_POST['email']) && isset($_POST['code'])) {
+                    //variabelen vullen met POST Request
                     $GEB_username = $_POST['username'];
                     $GEB_naam = $_POST['naam'];
                     $GEB_voornaam = $_POST['voornaam'];
                     $GEB_wachtwoord = $_POST['wachtwoord'];
                     $GEB_email = $_POST['email'];
                     $DOC_code = $_POST['code'];
+                    //checken of variabelen niet leeg zijn
                     if ($GEB_username === "" || $GEB_naam === "" || $GEB_voornaam === "" || $GEB_wachtwoord === "" || $GEB_email === "" || $DOC_code === "") {
                         die('{"error":"missing data","status":"fail"}');
                     }
@@ -85,9 +108,13 @@
                 mysqli_close($con);
                 die('{"data":"ok","message":"Record added successfully","status":"ok"}');
             } elseif ($function === "getone") {
+                //voordefinitie van de nodige variabelen
                 $DOC_id = null;
+                //check of POST Request van alle variabelen niet leeg zijn
                 if (isset($_POST['id'])) {
+                    //variabelen vullen met POST Request
                     $DOC_id = $_POST['id'];
+                    //checken of variabelen niet leeg zijn
                     if ($DOC_id === "") {
                         die('{"error":"missing data","status":"fail"}');
                     }
@@ -102,6 +129,7 @@
                 mysqli_close($con);
                 die('{"data":'.json_encode($docent).',"status":"ok"}');
             } elseif ($function === "getall") {
+                //voordefinitie van de nodige variabelen
                 $docenten = [];
                 $query = "SELECT docent.DOC_id,docent.DOC_naam,docent.DOC_GEB_id,gebruiker.GEB_username,gebruiker.GEB_naam,gebruiker.GEB_voornaam,gebruiker.GEB_wachtwoord,gebruiker.GEB_email FROM docent INNER JOIN gebruiker ON Docent.DOC_gebruiker_id = gebruiker.GEB_id";
                 $result = mysqli_query($con, $query);
@@ -114,9 +142,23 @@
                 mysqli_close($con);
                 die('{"data":'.json_encode($docenten).',"status":"ok"}');
             } elseif ($function === "change") {
-                $column = $_POST['column'];
-                $value = $_POST['value'];
-                $GEB_id = $_POST['GEB_id'];
+                //voordefinitie van de nodige variabelen
+                $column = null;
+                $value = null;
+                $GEB_id = null;
+                //check of POST Request van alle variabelen niet leeg zijn
+                if (isset($_POST['column']) && isset($_POST['value']) && isset($_POST['GEB_id'])) {
+                    //variabelen vullen met POST Request
+                    $column = $_POST['column'];
+                    $value = $_POST['value'];
+                    $GEB_id = $_POST['GEB_id'];
+                    //checken of variabelen niet leeg zijn
+                    if ($column === "" || $value === "" || $GEB_id === "") {
+                        die('{"error":"missing data","status":"fail"}');
+                    }
+                } else {
+                    die('{"error":"missing data","status":"fail"}');
+                }
                 if ($column === "GEB_username" || $column === "GEB_voornaam" || $column === "GEB_wachtwoord" || $column === "GEB_email") {
                     $query = "UPDATE gebruiker SET '$column' = '$value' WHERE GEB_id = $GEB_id";
                 } elseif ($column === "GEB_naam") {
@@ -130,20 +172,26 @@
                 mysqli_close($con);
                 die('{"data":"ok","message":"Record changed successfully","status":"ok"}');
             }
-        } elseif ($table === "student") {
+        }
+        //checken of $table voor student aan te passen is (in database zal gebruiker en student aangepast worden)
+        elseif ($table === "student") {
             if ($function === "add") {
+                //voordefinitie van de nodige variabelen
                 $GEB_username = null;
                 $GEB_naam = null;
                 $GEB_voornaam = null;
                 $GEB_wachtwoord = null;
                 $GEB_email = null;
                 $STU_GEB_id = null;
+                //check of POST Request van alle variabelen niet leeg zijn
                 if (isset($_POST['username']) && isset($_POST['naam']) && isset($_POST['voornaam']) && isset($_POST['wachtwoord']) && isset($_POST['email'])) {
+                    //variabelen vullen met POST Request
                     $GEB_username = $_POST['username'];
                     $GEB_naam = $_POST['naam'];
                     $GEB_voornaam = $_POST['voornaam'];
                     $GEB_wachtwoord = $_POST['wachtwoord'];
                     $GEB_email = $_POST['email'];
+                    //checken of variabelen niet leeg zijn
                     if ($GEB_username === "" || $GEB_naam === "" || $GEB_voornaam === "" || $GEB_wachtwoord === "" || $GEB_email === "") {
                         die('{"error":"missing data","status":"fail"}');
                     }
@@ -158,13 +206,19 @@
                 mysqli_close($con);
                 die('{"data":"ok","message":"Record added successfully","status":"ok"}');
             }
-        } elseif ($table === "gebruiker") {
+        }
+        //checken of $table voor gebruiker is (login via de gebruikerstabel en checken of het een student of een docent is)
+        elseif ($table === "gebruiker") {
+            //voordefinitie van de nodige variabelen
             $GEB_id = null;
             $GEB_username = null;
             $GEB_wachtwoord = null;
+            //check of POST Request van alle variabelen niet leeg zijn
             if (isset($_POST['username']) && isset($_POST['wachtwoord'])) {
+                //variabelen vullen met POST Request
                 $GEB_username = $_POST['username'];
                 $GEB_wachtwoord = $_POST['wachtwoord'];
+                //checken of variabelen niet leeg zijn
                 if ($GEB_username === "" || $GEB_wachtwoord === "") {
                     die('{"error":"missing data","status":"fail"}');
                 }
