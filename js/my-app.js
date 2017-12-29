@@ -48,12 +48,18 @@ function vakkenladen() {
 */
 
 
-function profielLaden(data){
-		$testnaam = data;
+function profielLaden(data, type){
+
+		var testnaam = data;
+		var persoontype = type;
 		//document.getElementById('ProfileNaam').innerText = "ELLEN test" ;
-		console.log('test2');
-		$$('#ProfileNaam').append('XXXXXXXXXXXXXXXXXXXXX');
-		console.log('test3');
+		console.log('testnaam', 'persoontype');
+		//$$('#ProfileNaam').append('XXXXXXXXXXXXXXXXXXXXX');
+
+
+
+
+
 
 }
 
@@ -97,12 +103,12 @@ $$('#signInbutton').on('click', function () {
 						url: "STU_Vakken.html"
 					});
 					myApp.closeModal();
-					profielLaden(inputdata);
-					console.log('test1');
+					profielLaden(username, student);
 					//vakkenladen();
 				} else if(response.data.type === "docent") {
 					mainView.router.load({
 						url: "DOC_Vakken.html"
+						profielLaden(username, docent);
 					});
 					myApp.closeModal();
 					//vakkenladen();
