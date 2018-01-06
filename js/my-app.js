@@ -87,6 +87,28 @@ $('#signInbutton').on('click', function () {
 					user.userid = response.data.GEB_id;
 					user.username = response.data.username;
 					user.type = response.data.type;
+					inputdata = {
+						function: 'getone',
+						table: 'student',
+						id: user.userid
+					}
+					$.post({
+						url: "php/users.php",
+						data: inputdata,
+						success: function (response) {
+							response = JSON.parse(response);
+							if(response.status === "fail") {
+								alert(response.error);
+							} else {
+								user.studentid = response.data.STU_id;
+								user.naam = response.data.GEB_naam;
+								user.voornaam = response.data.GEB_voornaam;
+								user.wachtwoord = response.data.GEB_wachtwoord;
+								user.email = response.data.GEB_email;
+								console.log(user);
+							}
+						}
+					});
 				} else if(response.data.type === "docent") {
 					mainView.router.load({
 						url: "DOC_Vakken.html"
