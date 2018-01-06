@@ -42,10 +42,10 @@
           die('{"error":"wrong table","status":"fail"}');
       }
       //checken of $tabel 'docent/student' is (anders gebruiker)
-      if ($table === 'vakdocent' && $function !== getallfromdocent)  {
-        die('{"error":"wrong function","status":"fail"}');
-      } elseif ($table === 'vakstudent' &&  $function !== getallfromstudent) {
-        die('{"error":"wrong function","status":"fail"}');
+      if ($table === 'vakdocent' && $function !== 'getallfromdocent') {
+          die('{"error":"wrong function","status":"fail"}');
+      } elseif ($table === 'vakstudent' &&  $function !== 'getallfromstudent') {
+          die('{"error":"wrong function","status":"fail"}');
       }
   }
   //-----connection maken met server (hosting)-----
@@ -55,65 +55,51 @@
   if (!$con) {
       die('{"error":"Connection failed","mysqlError":"' . json_encode($con -> error) .'","status":"fail"}');
   } else {
-
-    if ($table === 'vakdocent'){
-      if ($function === getallfromdocent)  {
-          $docentid = null;
-          $vakken = [];
-          if (isset($_POST['id'])){
-            $docentid = $_POST['id'];
-            if ($docentid === "") {
-                die('{"error":"missing data","status":"fail"}');
-            }
+      if ($table === 'vakdocent') {
+          if ($function === 'getallfromdocent') {
+              $docentid = null;
+              $vakken = [];
+              if (isset($_POST['id'])) {
+                  $docentid = $_POST['id'];
+                  if ($docentid === "") {
+                      die('{"error":"missing data","status":"fail"}');
+                  }
+              } else {
+                  die('{"error":"missing data","status":"fail"}');
+              }
+              $query = "SELECT vak.VAK_id,vak.VAK_naam FROM vak INNER JOIN vakdocent ON vak.VAK_id =vakdocent.VDO_vak_id WHERE vakdocent.VDO_docent_id = $docentid";
+              $result = mysqli_query($con, $query);
+              $index = 0;
+              while ($row = mysqli_fetch_array($result)) {
+                  array_push($vakken, ["index" => $index, "values" => ["VAK_id" => $row['VAK_id'],"VAK_naam" => $row['VAK_naam']]]);
+                  $index++;
+              }
+              mysqli_free_result($result);
+              mysqli_close($con);
+              die('{"data":'.json_encode($vakken).',"status":"ok"}');
           }
-        else {
-            die('{"error":"missing data","status":"fail"}');
-        }
-        $query = "SELECT vak.VAK_id,vak.VAK_naam FROM vak INNER JOIN vakdocent ON vak.VAK_id =vakdocent.VDO_vak_id WHERE vakdocent.VDO_docent_id = $docentid";
-        $result = mysqli_query($con, $query);
-        $index = 0;
-        while ($row = mysqli_fetch_array($result)) {
-            array_push($vakken, ["index" => $index, "values" => ["VAK_id" => $row['VAK_id'],"VAK_naam" => $row['VAK_naam']]]);
-            $index++;
-        }
-        mysqli_free_result($result);
-        mysqli_close($con);
-        die('{"data":'.json_encode($vakken).',"status":"ok"}');
-      }
-    elseif ($table === 'vakstudent'){
-      if (  $function === getallfromstudent) {
-        $studentid = null;
-        $vakken = [];
-        if (isset($_POST['id'])){
-          $studentid = $_POST['id'];
-          if ($studentid === "") {
-              die('{"error":"missing data","status":"fail"}');
+      } elseif ($table === 'vakstudent') {
+          if ($function === 'getallfromstudent') {
+              $studentid = null;
+              $vakken = [];
+              if (isset($_POST['id'])) {
+                  $studentid = $_POST['id'];
+                  if ($studentid === "") {
+                      die('{"error":"missing data","status":"fail"}');
+                  }
+              } else {
+                  die('{"error":"missing data","status":"fail"}');
+              }
+              $query = "SELECT vak.VAK_id,vak.VAK_naam FROM vak INNER JOIN vakstudent ON vak.VAK_id = vakstudent.VAS_vak_id WHERE vakstudent.VAS_student_id = $studentid";
+              $result = mysqli_query($con, $query);
+              $index = 0;
+              while ($row = mysqli_fetch_array($result)) {
+                  array_push($vakken, ["index" => $index, "values" => ["VAK_id" => $row['VAK_id'],"VAK_naam" => $row['VAK_naam']]]);
+                  $index++;
+              }
+              mysqli_free_result($result);
+              mysqli_close($con);
+              die('{"data":'.json_encode($vakken).',"status":"ok"}');
           }
-        }
-
-      else {
-          die('{"error":"missing data","status":"fail"}');
       }
-      $query = "SELECT vak.VAK_id,vak.VAK_naam FROM vak INNER JOIN vakstudent ON vak.VAK_id = vakstudent.VAS_vak_id WHERE vakstudent.VAS_student_id = $studentid";
-      $result = mysqli_query($con, $query);
-      $index = 0;
-      while ($row = mysqli_fetch_array($result)) {
-          array_push($vakken, ["index" => $index, "values" => ["VAK_id" => $row['VAK_id'],"VAK_naam" => $row['VAK_naam']]]);
-          $index++;
-      }
-      mysqli_free_result($result);
-      mysqli_close($con);
-      die('{"data":'.json_encode($vakken).',"status":"ok"}');
-    }
   }
-
-
-
-
-
-
-
-
-
-
-?>
