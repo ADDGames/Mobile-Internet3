@@ -205,7 +205,7 @@
                 $con->query($query);
                 mysqli_close($con);
                 die('{"data":"ok","message":"Record added successfully","status":"ok"}');
-            }elseif ($function === "getone") {
+            } elseif ($function === "getone") {
                 //voordefinitie van de nodige variabelen
                 $GEB_id = null;
                 //check of POST Request van alle variabelen niet leeg zijn
