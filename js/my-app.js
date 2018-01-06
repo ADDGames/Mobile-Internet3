@@ -88,6 +88,8 @@ myApp.onPageInit('DOC_vakken', function (page) {
 				alert(response.error);
 			} else {
 				alert("ok");
+				response = JSON.parse(response);
+				console.log(response);
 			}
 		}
 	});
