@@ -7,7 +7,9 @@ var mainView = myApp.addView('.view-main', {
 	// Because we use fixed-through navbar we can enable dynamic navbar
 	dynamicNavbar: true
 });
-var user = [];
+var gegevens = [];
+gegevens.user = [];
+gegevens.vak = [];
 // Callbacks to run specific code for specific pages, for example for About page:
 myApp.onPageInit('about', function (page) {
 	// run createContentPage func after link was clicked
@@ -47,19 +49,17 @@ function vakkenladen() {
 }
 */
 myApp.onPageInit('Profile', function (page) {
-	$$('div#ProfileVolledigenaam').text(user.username + " " + user.voornaam);
-	$$('div#Profileusername').text(user.username);
-	$$('div#ProfileWachtwoord').text(user.wachtwoord);
-	$$('div#ProfileEmail').text(user.email);
+	$$('div#ProfileVolledigenaam').text(gegevens.user.username + " " + gegevens.user.voornaam);
+	$$('div#Profileusername').text(gegevens.user.username);
+	$$('div#ProfileWachtwoord').text(gegevens.user.wachtwoord);
+	$$('div#ProfileEmail').text(gegevens.user.email);
 });
 myApp.onPageInit('STU_vakken', function (page) {
-	console.log(user);
-	inputdata = {
+	var inputdata = {
 		function: 'getallfromstudent',
 		table: 'vakstudent',
-		id: user.studentid
+		id: gegevens.user.studentid
 	}
-	console.log(inputdata);
 	$.post({
 		url: "php/vakken.php",
 		data: inputdata,
@@ -71,16 +71,15 @@ myApp.onPageInit('STU_vakken', function (page) {
 				$.each(response.data, function (index) {
 					$('#lijstvakkenstudent').append("<li> <a href='STU_Vak.html' id='" + response.data[index].values.VAK_id + "' class='item-link item-content'> <div class='item-media'><i class='icon f7-icons' width='100'>collection</i></div><div class='item-inner'><div class='item-title-row'><div class='item-title'>" + response.data[index].values.VAK_naam + "</div><div class='item-after'>Online</div></div><div class='item-subtitle'>" + response.data[index].values.Docent_naam + "</div><div class='item-text'></div></div></a></li>");
 				});
-				console.log(response);
 			}
 		}
 	});
 });
 myApp.onPageInit('DOC_vakken', function (page) {
-	inputdata = {
+	var inputdata = {
 		function: 'getallfromdocent',
 		table: 'vakdocent',
-		id: user.docentid
+		id: gegevens.user.docentid
 	}
 	$.post({
 		url: "php/vakken.php",
@@ -91,9 +90,30 @@ myApp.onPageInit('DOC_vakken', function (page) {
 				alert(response.error);
 			} else {
 				$.each(response.data, function (index) {
-					$('#lijstvakkendocent').append("<li> <a href='DOC_Vak.html' id='" + response.data[index].values.VAK_id + "' class='item-link item-content'> <div class='item-media'><i class='icon f7-icons' width='100'>collection</i></div><div class='item-inner'><div class='item-title-row'><div class='item-title'>" + response.data[index].values.VAK_naam + "</div><div class='item-after'>Online</div></div><div class='item-subtitle'></div><div class='item-text'></div></div></a></li>");
+					$('#lijstvakkendocent').append("<li class='doorklikken' id='" + response.data[index].values.VAK_id + "'> <a href='DOC_Vak.html' class='item-link item-content'> <div class='item-media'><i class='icon f7-icons' width='100'>collection</i></div><div class='item-inner'><div class='item-title-row'><div class='item-title'>" + response.data[index].values.VAK_naam + "</div><div class='item-after'>Online</div></div><div class='item-subtitle'></div><div class='item-text'></div></div></a></li>");
 				});
-				console.log(response);
+				$$(".doorklikken").on('click', function () {
+					gegevens.vak.id = $(this).attr('id');
+					var inputdata = {
+						function: 'getallstudentenfromvak',
+						table: 'vakstudent',
+						id: gegevens.vak.id
+					}
+					$.post({
+						url: "php/vakken.php",
+						data: inputdata,
+						success: function (response) {
+							response = JSON.parse(response);
+							if(response.status === "fail") {
+								alert(response.error);
+							} else {
+								$.each(response.data, function (index) {
+									$('#lijstleerlingen').append("<li><div class='item-content'><div class='item-inner'><div class='item-title'>" + response.data[index].values.Naam + " " + response.data[index].values.Voornaam + "</div></div></div></li>");
+								});
+							}
+						}
+					});
+				});
 			}
 		}
 	});
@@ -129,13 +149,13 @@ $('#signInbutton').on('click', function () {
 				alert(response.error);
 			} else {
 				if(response.data.type === "student") {
-					user.userid = response.data.GEB_id;
-					user.username = response.data.username;
-					user.type = response.data.type;
-					inputdata = {
+					gegevens.user.userid = response.data.GEB_id;
+					gegevens.user.username = response.data.username;
+					gegevens.user.type = response.data.type;
+					var inputdata = {
 						function: 'getone',
 						table: 'student',
-						id: user.userid
+						id: gegevens.user.userid
 					}
 					$.post({
 						url: "php/users.php",
@@ -145,12 +165,11 @@ $('#signInbutton').on('click', function () {
 							if(response.status === "fail") {
 								alert(response.error);
 							} else {
-								user.studentid = response.data.STU_id;
-								user.naam = response.data.GEB_naam;
-								user.voornaam = response.data.GEB_voornaam;
-								user.wachtwoord = response.data.GEB_wachtwoord;
-								user.email = response.data.GEB_email;
-								console.log(user);
+								gegevens.user.studentid = response.data.STU_id;
+								gegevens.user.naam = response.data.GEB_naam;
+								gegevens.user.voornaam = response.data.GEB_voornaam;
+								gegevens.user.wachtwoord = response.data.GEB_wachtwoord;
+								gegevens.user.email = response.data.GEB_email;
 								mainView.router.load({
 									url: "STU_Vakken.html"
 								});
@@ -159,13 +178,13 @@ $('#signInbutton').on('click', function () {
 						}
 					});
 				} else if(response.data.type === "docent") {
-					user.userid = response.data.GEB_id;
-					user.username = response.data.username;
-					user.type = response.data.type;
-					inputdata = {
+					gegevens.user.userid = response.data.GEB_id;
+					gegevens.user.username = response.data.username;
+					gegevens.user.type = response.data.type;
+					var inputdata = {
 						function: 'getone',
 						table: 'docent',
-						id: user.userid
+						id: gegevens.user.userid
 					}
 					$.post({
 						url: "php/users.php",
@@ -175,12 +194,11 @@ $('#signInbutton').on('click', function () {
 							if(response.status === "fail") {
 								alert(response.error);
 							} else {
-								user.docentid = response.data.DOC_id;
-								user.naam = response.data.GEB_naam;
-								user.voornaam = response.data.GEB_voornaam;
-								user.wachtwoord = response.data.GEB_wachtwoord;
-								user.email = response.data.GEB_email;
-								console.log(user);
+								gegevens.user.docentid = response.data.DOC_id;
+								gegevens.user.naam = response.data.GEB_naam;
+								gegevens.user.voornaam = response.data.GEB_voornaam;
+								gegevens.user.wachtwoord = response.data.GEB_wachtwoord;
+								gegevens.user.email = response.data.GEB_email;
 								mainView.router.load({
 									url: "DOC_Vakken.html"
 								});

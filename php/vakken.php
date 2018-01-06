@@ -44,8 +44,10 @@
       //checken of $tabel 'docent/student' is (anders gebruiker)
       if ($table === 'vakdocent' && $function !== 'getallfromdocent') {
           die('{"error":"wrong function","status":"fail"}');
-      } elseif ($table === 'vakstudent' &&  $function !== 'getallfromstudent') {
-          die('{"error":"wrong function","status":"fail"}');
+      } elseif ($table === 'vakstudent') {
+          if ($function !== 'getallfromstudent' && $function !== 'getallstudentenfromvak') {
+              die('{"error":"wrong function","status":"fail"}');
+          }
       }
   }
   //-----connection maken met server (hosting)-----
@@ -100,6 +102,27 @@
               mysqli_free_result($result);
               mysqli_close($con);
               die('{"data":'.json_encode($vakken).',"status":"ok"}');
+          } elseif ($function === 'getallstudentenfromvak') {
+              $vakid = null;
+              $studenten = [];
+              if (isset($_POST['id'])) {
+                  $vakid = $_POST['id'];
+                  if ($vakid === "") {
+                      die('{"error":"missing data","status":"fail"}');
+                  }
+              } else {
+                  die('{"error":"missing data","status":"fail"}');
+              }
+              $query = "SELECT gebruiker.GEB_voornaam, gebruiker.GEB_naam FROM student INNER JOIN vakstudent ON student.STU_id = vakstudent.VAS_student_id INNER JOIN gebruiker ON gebruiker.GEB_id = student.STU_GEB_id WHERE vakstudent.VAS_vak_id = $vakid";
+              $result = mysqli_query($con, $query);
+              $index = 0;
+              while ($row = mysqli_fetch_array($result)) {
+                  array_push($studenten, ["index" => $index, "values" => ["Voornaam" => $row['GEB_voornaam'], "Naam" => $row['GEB_naam']]]);
+                  $index++;
+              }
+              mysqli_free_result($result);
+              mysqli_close($con);
+              die('{"data":'.json_encode($studenten).',"status":"ok"}');
           }
       }
   }
