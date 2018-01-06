@@ -75,7 +75,7 @@ myApp.onPageInit('DOC_vakken', function (page) {
 	inputdata = {
 		function: 'getallfromdocent',
 		table: 'vakdocent',
-		id: user.studentid
+		id: user.docentid
 	}
 	$.post({
 		url: "php/vakken.php",
