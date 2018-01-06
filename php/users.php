@@ -205,6 +205,27 @@
                 $con->query($query);
                 mysqli_close($con);
                 die('{"data":"ok","message":"Record added successfully","status":"ok"}');
+            }elseif ($function === "getone") {
+                //voordefinitie van de nodige variabelen
+                $GEB_id = null;
+                //check of POST Request van alle variabelen niet leeg zijn
+                if (isset($_POST['id'])) {
+                    //variabelen vullen met POST Request
+                    $GEB_id = $_POST['id'];
+                    //checken of variabelen niet leeg zijn
+                    if ($GEB_id === "") {
+                        die('{"error":"missing data","status":"fail"}');
+                    }
+                } else {
+                    die('{"error":"missing data","status":"fail"}');
+                }
+                $query = "SELECT student.STU_id,student.STU_GEB_id,gebruiker.GEB_username,gebruiker.GEB_naam,gebruiker.GEB_voornaam,gebruiker.GEB_wachtwoord,gebruiker.GEB_email FROM student INNER JOIN gebruiker ON student.STU_GEB_id = gebruiker.GEB_id WHERE gebruiker.GEB_id = $GEB_id";
+                $result = mysqli_query($con, $query);
+                $row = mysqli_fetch_assoc($result);
+                $student = ["STU_id" => $row['STU_id'],"STU_GEB_id" => $row['STU_GEB_id'],"GEB_username" => $row['GEB_username'],"GEB_naam" => $row['GEB_naam'],"GEB_voornaam" => $row['GEB_voornaam'],"GEB_wachtwoord" => $row['GEB_wachtwoord'],"GEB_email" => $row['GEB_email']];
+                mysqli_free_result($result);
+                mysqli_close($con);
+                die('{"data":'.json_encode($student).',"status":"ok"}');
             }
         }
         //checken of $table voor gebruiker is (login via de gebruikerstabel en checken of het een student of een docent is)
