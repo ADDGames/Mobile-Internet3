@@ -80,6 +80,8 @@
         mysqli_close($con);
         die('{"data":'.json_encode($vakken).',"status":"ok"}');
       }
+    }
+
     elseif ($table === 'vakstudent'){
       if (  $function === getallfromstudent) {
         $studentid = null;
@@ -90,7 +92,6 @@
               die('{"error":"missing data","status":"fail"}');
           }
         }
-
       else {
           die('{"error":"missing data","status":"fail"}');
       }
@@ -107,7 +108,7 @@
     }
   }
 
-
+}
 
 
 
