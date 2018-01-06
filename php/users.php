@@ -49,7 +49,7 @@
             }
         } else {
             //checken of $function 1 van de gekozen functies is
-            if ($function !== 'login' && $function !== 'registeer') {
+            if ($function !== 'login') {
                 die('{"error":"wrong function","status":"fail"}');
             }
         }
