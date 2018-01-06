@@ -7,6 +7,7 @@ var mainView = myApp.addView('.view-main', {
 	// Because we use fixed-through navbar we can enable dynamic navbar
 	dynamicNavbar: true
 });
+var user = [];
 // Callbacks to run specific code for specific pages, for example for About page:
 myApp.onPageInit('about', function (page) {
 	// run createContentPage func after link was clicked
@@ -21,7 +22,6 @@ function createContentPage() {
 	mainView.router.loadContent('<!-- Top Navbar-->' + '<div class="navbar">' + '  <div class="navbar-inner">' + '    <div class="left"><a href="#" class="back link"><i class="icon icon-back"></i><span>Back</span></a></div>' + '    <div class="center sliding">Dynamic Page ' + (++dynamicPageIndex) + '</div>' + '  </div>' + '</div>' + '<div class="pages">' + '  <!-- Page, data-page contains page name-->' + '  <div data-page="dynamic-pages" class="page">' + '    <!-- Scrollable page content-->' + '    <div class="page-content">' + '      <div class="content-block">' + '        <div class="content-block-inner">' + '          <p>Here is a dynamic page created on ' + new Date() + ' !</p>' + '          <p>Go <a href="#" class="back">back</a> or go to <a href="services.html">Services</a>.</p>' + '        </div>' + '      </div>' + '    </div>' + '  </div>' + '</div>');
 	return;
 }
-
 /*
 function vakkenladen() {
         var input = {
@@ -46,32 +46,17 @@ function vakkenladen() {
 				});
 }
 */
-
-
-function profielLaden(data, type){
-
-		var testnaam = data;
-		var persoontype = type;
-		//document.getElementById('ProfileNaam').innerText = "ELLEN test" ;
-		console.log('testnaam', 'persoontype');
-		//$$('#ProfileNaam').append('XXXXXXXXXXXXXXXXXXXXX');
-
-
-
-
-
-
+function profielLaden(data, type) {
+	//document.getElementById('ProfileNaam').text = "ELLEN test";
+	console.log(document.getElementById('ProfileNaam'));
 }
-
-
-
-
+myApp.onPageInit('Profile', function (page) {
+	$$('div#ProfileNaam').text('Hi I am replace');
+});
 $$('.form-to-data').on('click', function () {
 	var formData = myApp.formToData('#vraag_form');
 	alert(JSON.stringify(formData));
 });
-
-
 var boolLeerkracht = false;
 $$("#signupLeerkracht").on("change", function () {
 	if($$("#LeerkrachtCode").prop('disabled')) {
@@ -83,7 +68,7 @@ $$("#signupLeerkracht").on("change", function () {
 		boolLeerkracht = false;
 	}
 });
-$$('#signInbutton').on('click', function () {
+$('#signInbutton').on('click', function () {
 	var inputdata = {
 		function: 'login',
 		table: 'gebruiker',
@@ -103,14 +88,14 @@ $$('#signInbutton').on('click', function () {
 						url: "STU_Vakken.html"
 					});
 					myApp.closeModal();
-					profielLaden(username, student);
+					profielLaden(inputdata.username, "student");
 					//vakkenladen();
 				} else if(response.data.type === "docent") {
 					mainView.router.load({
 						url: "DOC_Vakken.html"
-						profielLaden(username, docent);
 					});
 					myApp.closeModal();
+					profielLaden(inputdata.username, "docent");
 					//vakkenladen();
 				}
 			}
@@ -122,8 +107,6 @@ $$('#signInbutton').on('click', function () {
 		}
 	});
 });
-
-
 $$('#registreerbutton').on('click', function () {
 	if($("#signup-wachtwoord1").val() = $("#signup-wachtwoord2").val()) {
 		var inputdata = {
