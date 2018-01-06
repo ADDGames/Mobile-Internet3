@@ -90,6 +90,9 @@ myApp.onPageInit('DOC_vakken', function (page) {
 			if(response.status === "fail") {
 				alert(response.error);
 			} else {
+				$.each(response.data, function (index) {
+					$('#lijstvakkendocent').append("<li> <a href='DOC_Vak.html' id='" + response.data[index].values.VAK_id + "' class='item-link item-content'> <div class='item-media'><i class='icon f7-icons' width='100'>collection</i></div><div class='item-inner'><div class='item-title-row'><div class='item-title'>" + response.data[index].values.VAK_naam + "</div><div class='item-after'>Online</div></div><div class='item-subtitle'></div><div class='item-text'></div></div></a></li>");
+				});
 				console.log(response);
 			}
 		}
