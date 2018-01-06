@@ -71,6 +71,25 @@ myApp.onPageInit('STU_vakken', function (page) {
 		}
 	});
 });
+myApp.onPageInit('DOC_vakken', function (page) {
+	inputdata = {
+		function: 'getallfromdocent',
+		table: 'vakdocent',
+		id: user.studentid
+	}
+	$.post({
+		url: "php/vakken.php",
+		data: inputdata,
+		success: function (response) {
+			response = JSON.parse(response);
+			if(response.status === "fail") {
+				alert(response.error);
+			} else {
+				alert("ok");
+			}
+		}
+	});
+});
 $$('.form-to-data').on('click', function () {
 	var formData = myApp.formToData('#vraag_form');
 	alert(JSON.stringify(formData));
