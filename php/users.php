@@ -109,29 +109,29 @@
                 die('{"data":"ok","message":"Record added successfully","status":"ok"}');
             } elseif ($function === "getone") {
                 //voordefinitie van de nodige variabelen
-                $DOC_id = null;
+                $GEB_id = null;
                 //check of POST Request van alle variabelen niet leeg zijn
                 if (isset($_POST['id'])) {
                     //variabelen vullen met POST Request
-                    $DOC_id = $_POST['id'];
+                    $GEB_id = $_POST['id'];
                     //checken of variabelen niet leeg zijn
-                    if ($DOC_id === "") {
+                    if ($GEB_id === "") {
                         die('{"error":"missing data","status":"fail"}');
                     }
                 } else {
                     die('{"error":"missing data","status":"fail"}');
                 }
-                $query = "SELECT docent.DOC_id,docent.DOC_naam,docent.DOC_GEB_id,gebruiker.GEB_username,gebruiker.GEB_naam,gebruiker.GEB_voornaam,gebruiker.GEB_wachtwoord,gebruiker.GEB_email FROM docent INNER JOIN gebruiker ON Docent.DOC_gebruiker_id = gebruiker.GEB_id WHERE docent.DOC_id = $DOC_id";
+                $query = "SELECT docent.DOC_id,docent.DOC_GEB_id,gebruiker.GEB_username,gebruiker.GEB_naam,gebruiker.GEB_voornaam,gebruiker.GEB_wachtwoord,gebruiker.GEB_email FROM docent INNER JOIN gebruiker ON docent.DOC_GEB_id = gebruiker.GEB_id WHERE gebruiker.GEB_id = $GEB_id";
                 $result = mysqli_query($con, $query);
                 $row = mysqli_fetch_assoc($result);
-                $docent = ["DOC_id" => $row['DOC_id'],"DOC_naam" => $row['DOC_naam'],"DOC_GEB_id" => $row['DOC_GEB_id'],"GEB_username" => $row['GEB_username'],"GEB_naam" => $row['GEB_naam'],"GEB_voornaam" => $row['GEB_voornaam'],"GEB_wachtwoord" => $row['GEB_wachtwoord'],"GEB_email" => $row['GEB_email']];
+                $docent = ["DOC_id" => $row['DOC_id'],"DOC_GEB_id" => $row['DOC_GEB_id'],"GEB_username" => $row['GEB_username'],"GEB_naam" => $row['GEB_naam'],"GEB_voornaam" => $row['GEB_voornaam'],"GEB_wachtwoord" => $row['GEB_wachtwoord'],"GEB_email" => $row['GEB_email']];
                 mysqli_free_result($result);
                 mysqli_close($con);
                 die('{"data":'.json_encode($docent).',"status":"ok"}');
             } elseif ($function === "getall") {
                 //voordefinitie van de nodige variabelen
                 $docenten = [];
-                $query = "SELECT docent.DOC_id,docent.DOC_naam,docent.DOC_GEB_id,gebruiker.GEB_username,gebruiker.GEB_naam,gebruiker.GEB_voornaam,gebruiker.GEB_wachtwoord,gebruiker.GEB_email FROM docent INNER JOIN gebruiker ON Docent.DOC_gebruiker_id = gebruiker.GEB_id";
+                $query = "SELECT docent.DOC_id,docent.DOC_GEB_id,gebruiker.GEB_username,gebruiker.GEB_naam,gebruiker.GEB_voornaam,gebruiker.GEB_wachtwoord,gebruiker.GEB_email FROM docent INNER JOIN gebruiker ON docent.DOC_GEB_id = gebruiker.GEB_id";
                 $result = mysqli_query($con, $query);
                 $index = 0;
                 while ($row = mysqli_fetch_array($result)) {

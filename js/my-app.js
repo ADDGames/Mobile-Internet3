@@ -46,12 +46,8 @@ function vakkenladen() {
 				});
 }
 */
-function profielLaden(data, type) {
-	//document.getElementById('ProfileNaam').text = "ELLEN test";
-	console.log(document.getElementById('ProfileNaam'));
-}
 myApp.onPageInit('Profile', function (page) {
-	$$('div#ProfileNaam').text('Hi I am replace');
+	$$('div#ProfileNaam').text(user.username);
 });
 $$('.form-to-data').on('click', function () {
 	var formData = myApp.formToData('#vraag_form');
@@ -88,15 +84,39 @@ $('#signInbutton').on('click', function () {
 						url: "STU_Vakken.html"
 					});
 					myApp.closeModal();
-					profielLaden(inputdata.username, "student");
-					//vakkenladen();
+					user.userid = response.data.GEB_id;
+					user.username = response.data.username;
+					user.type = response.data.type;
 				} else if(response.data.type === "docent") {
 					mainView.router.load({
 						url: "DOC_Vakken.html"
 					});
 					myApp.closeModal();
-					profielLaden(inputdata.username, "docent");
-					//vakkenladen();
+					user.userid = response.data.GEB_id;
+					user.username = response.data.username;
+					user.type = response.data.type;
+					inputdata = {
+						function: 'getone',
+						table: 'docent',
+						id: user.userid
+					}
+					$.post({
+						url: "php/users.php",
+						data: inputdata,
+						success: function (response) {
+							response = JSON.parse(response);
+							if(response.status === "fail") {
+								alert(response.error);
+							} else {
+								user.docentid = response.data.DOC_id;
+								user.naam = response.data.GEB_naam;
+								user.voornaam = response.data.GEB_voornaam;
+								user.wachtwoord = response.data.GEB_wachtwoord;
+								user.email = response.data.GEB_email;
+								console.log(user);
+							}
+						}
+					});
 				}
 			}
 		},
