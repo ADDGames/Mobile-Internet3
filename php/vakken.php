@@ -90,11 +90,11 @@
               } else {
                   die('{"error":"missing data","status":"fail"}');
               }
-              $query = "SELECT vak.VAK_id,vak.VAK_naam FROM vak INNER JOIN vakstudent ON vak.VAK_id = vakstudent.VAS_vak_id WHERE vakstudent.VAS_student_id = $studentid";
+              $query = "SELECT vak.VAK_id,vak.VAK_naam, gebruiker.GEB_naam FROM vak INNER JOIN vakstudent ON vak.VAK_id = vakstudent.VAS_vak_id INNER JOIN vakdocent ON vakdocent.VDO_vak_id = vak.VAK_id INNER JOIN docent ON docent.DOC_id = vakdocent.VDO_docent_id INNER JOIN gebruiker ON gebruiker.GEB_id = docent.DOC_GEB_id WHERE vakstudent.VAS_student_id = $studentid";
               $result = mysqli_query($con, $query);
               $index = 0;
               while ($row = mysqli_fetch_array($result)) {
-                  array_push($vakken, ["index" => $index, "values" => ["VAK_id" => $row['VAK_id'],"VAK_naam" => $row['VAK_naam']]]);
+                  array_push($vakken, ["index" => $index, "values" => ["VAK_id" => $row['VAK_id'],"VAK_naam" => $row['VAK_naam'], "Docent_naam" => $row['GEB_naam']]]);
                   $index++;
               }
               mysqli_free_result($result);

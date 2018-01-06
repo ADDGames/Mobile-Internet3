@@ -68,7 +68,7 @@ myApp.onPageInit('STU_vakken', function (page) {
 			if(response.status === "fail") {
 				alert(response.error);
 			} else {
-				alert("ok");
+				console.log(response);
 			}
 		}
 	});
@@ -87,8 +87,6 @@ myApp.onPageInit('DOC_vakken', function (page) {
 			if(response.status === "fail") {
 				alert(response.error);
 			} else {
-				alert("ok");
-				response = JSON.parse(response);
 				console.log(response);
 			}
 		}
