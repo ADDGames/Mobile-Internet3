@@ -60,22 +60,24 @@
           <div id="leerlingpop" class="popover leerling-popover">
             <div class="popover-inner">
               <div class="content-block-title">Leerling Toevoegen</div>
-              <form id="my-form1" class="list-block">
+              <form id="my-form1" class="list-block list form-store-data">
                 <ul>
                   <li>
-                    <div class="item-content">
-                      <div class="item-media">
-                        <i class="icon f7-icons">plus</i>
-                      </div>
+                    <div class="item-content item-input">
                       <div class="item-inner">
-                        <div class="item-media">
-                          <i class="icon f7-icons">person</i>
+                        <div class="item-title item-label">Naam</div>
+                        <div class="item-input-wrap">
+                          <input id="addleerlingnaam" type="text" name="naam" placeholder="Naam">
                         </div>
-                        <div class="item-inner">
-                          <div class="item-title label">Naam</div>
-                          <div class="item-input">
-                            <input type="text" placeholder="Naam Leerling">
-                          </div>
+                      </div>
+                    </div>
+                  </li>
+                  <li>
+                    <div class="item-content item-input">
+                      <div class="item-inner">
+                        <div class="item-title item-label">Voornaam</div>
+                        <div class="item-input-wrap">
+                          <input id="addleerlingvoornaam" type="text" name="voornaam" placeholder="Voornaam">
                         </div>
                       </div>
                     </div>
@@ -83,7 +85,7 @@
                 </ul>
               </form>
               <div class="content-block">
-                <a href="#" class="button form-to-data">Voeg leerling toe</a>
+                <a href="#" class="button form-to-data" id="voegleerlingtoe">Voeg leerling toe</a>
               </div>
             </div>
           </div>

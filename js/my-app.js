@@ -328,3 +328,38 @@ $$('#registreerbutton').on('click', function() {
     alert('wachtwoord is niet gelijk');
   }
 });
+
+$$('#voegleerlingtoe').on('click', function() {
+  if ($("#addleerlingvoornaam").val() !== null || $("#addleerlingnaam").val() !== null) {
+
+    var inputdata = {
+      function: 'nieuweleerling',
+      table: 'gebruiker',
+      voornaam: $("#addleerlingvoornaam").val(),
+      naam: $("#addleerlingnaam").val(),
+      vakid: $("").id(),
+    };
+
+    $.post({
+      url: "php/Addleerling.php",
+      data: inputdata,
+      success: function(response) {
+        response = JSON.parse(response);
+        if (response.status === "fail") {
+          alert(response.error);
+        } else {
+          alert('ok');
+          // add rij in vak_student met de id van deze leerling en het id van het vak
+        }
+      },
+      error: function(jqXHR, textStatus, errorThrown) {
+        alert(jqXHR);
+        alert(textStatus);
+        alert(errorThrown);
+      }
+    });
+  } else {
+    alert('Alle velden invullen.');
+  }
+
+});

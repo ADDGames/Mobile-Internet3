@@ -81,7 +81,7 @@
           die('{"data":'.json_encode($sessies).',"status":"ok"}');
         }
       }
-      elseif ($table === 'vakdocent') {
+  /* elseif ($table === 'vakdocent') {
           if ($function === 'getallforvak') {
             $docentid = null;
             $sessies = [];
@@ -106,5 +106,5 @@
             die('{"data":'.json_encode($sessies).',"status":"ok"}');
 
           }
-        }
+        }*/
   }
