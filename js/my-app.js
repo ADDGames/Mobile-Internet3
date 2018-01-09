@@ -168,6 +168,31 @@ myApp.onPageInit('STU_vak', function(page) {
   });
 });
 
+myApp.onPageInit('DOC_vak', function(page) {
+  var inputdata = {
+    function: 'getallforvak',
+    table: 'vakdocent',
+    id: gegevens.user.docentid
+  }
+  $.post({
+    url: "php/vak.php",
+    data: inputdata,
+    success: function(response) {
+      response = JSON.parse(response);
+      if (response.status === "fail") {
+        alert(response.error);
+      } else {
+        $.each(response.data, function(index) {
+          if (response.data[index].values.SES_actief === 1) {
+            response.data[index].values.SES_actief === Online;
+          }
+          $('#lijstsessiedocent').append("<li id='" + response.data[index].values.SES_id + "'><a href='DOC_Sessie.html' class='item-link item-content'><div class='item-inner'><div class='item-title-row'><div class='item-title'>" + response.data[index].values.SES_naam + "</div><div class='item-after'>" + response.data[index].values.SES_actief + "</div><div><div class='item-subtitle'>" + response.data[index].values.SES_code + "</div><div class='item-text'><div class='item-content'><div class='item-media'><i class='icon f7-icons'>lock</i><div><div class='item-inner'><div class='item-input'></div></div></div></div></div></a></li>");
+        });
+      }
+    }
+  });
+});
+
 $$('.form-to-data').on('click', function() {
   var formData = myApp.formToData('#vraag_form');
   alert(JSON.stringify(formData));

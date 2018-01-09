@@ -123,6 +123,7 @@
               }
               mysqli_free_result($result);
               mysqli_close($con);
+/*
 
               $query2 = "SELECT vak.VAK_id, vak.VAK_naam, gebruiker.GEB_naam FROM vak inner join vakdocent ON vakdocent.VDO_vak_id = vak.VAK_id INNER JOIN docent ON docent.DOC_id = vakdocent.VDO_docent_id INNER JOIN gebruiker ON gebruiker.GEB_id = docent.DOC_GEB_id WHERE vakdocent.VDO_vak_id = $vakid";
               $result2 = mysqli_query($con, $query2);
@@ -131,10 +132,10 @@
                   array_push($vakken, ["index" => $index, "values" => ["Voornaam" => $row['GEB_voornaam'], "Naam" => $row['GEB_naam']]]);
                   $index++;
               }
-              mysqli_free_result($result);
+              mysqli_free_result($result2);
               mysqli_close($con);
-
-              die('{"data":'.json_encode($studenten, $vakken).',"status":"ok"}');
+*/
+              die('{"data":'.json_encode($studenten /*, $vakken*/).',"status":"ok"}');
           } elseif ($function === 'getallallfromVak'){
             $vakid = null;
             $vakken = [];
