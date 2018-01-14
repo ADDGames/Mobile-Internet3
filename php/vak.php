@@ -70,8 +70,14 @@
               $query = "SELECT sessie.SES_id, sessie.SES_naam, sessie.SES_eindtijd, sessie.SES_actief, sessie.SES_vak_id, vak.VAK_naam, sessie_student.SST_student_id, student.STU_id, gebruiker.GEB_naam, gebruiker.GEB_voornaam FROM sessie INNER JOIN sessie_student on sessie_student.SST_sessie_id = sessie.SES_id INNER JOIN student on sessie_student.SST_student_id = student.STU_id INNER JOIN vak on sessie.SES_vak_id = vak.VAK_id INNER JOIN gebruiker on gebruiker.GEB_id = student.STU_GEB_id WHERE student.STU_id = $studentid";
               $result = mysqli_query($con, $query);
               $index = 0;
+              $actief = null;
               while ($row = mysqli_fetch_array($result)) {
-                  array_push($sessies, ["index" => $index, "values" => ["SES_id" => $row['SES_id'],"SES_naam" => $row['SES_naam'], "SES_eindtijd" => $row['SES_eindtijd'], "SES_actief" => $row['SES_actief'], "SES_vak_id" => $row['SES_vak_id'],
+                  if ($row['SES_actief'] == 1) {
+                      $actief = "Online";
+                  } else {
+                      $actief = "Offline";
+                  }
+                  array_push($sessies, ["index" => $index, "values" => ["SES_id" => $row['SES_id'],"SES_naam" => $row['SES_naam'], "SES_eindtijd" => $row['SES_eindtijd'], "SES_actief" => $actief, "SES_vak_id" => $row['SES_vak_id'],
               "VAK_naam" => $row['VAK_naam'], "SST_student_id" => $row['SST_student_id'], "STU_id" => $row['STU_id'], "Stu_naam" => $row['GEB_naam'], "Stu_voornaam" => $row['GEB_voornaam']]]);
                   $index++;
               }
@@ -94,8 +100,14 @@
               $query = "SELECT sessie.SES_id, sessie.SES_naam, sessie.SES_eindtijd, sessie.SES_actief, sessie.SES_vak_id, vak.VAK_naam, sessie_docent.SDO_docent_id, docent.DOC_id, gebruiker.GEB_naam, gebruiker.GEB_voornaam FROM sessie INNER JOIN sessie_docent on sessie_docent.SDO_sessie_id = sessie.SES_id INNER JOIN docent on sessie_docent.SDO_docent_id = docent.DOC_id INNER JOIN vak on sessie.SES_vak_id = vak.VAK_id INNER JOIN gebruiker on gebruiker.GEB_id = docent.DOC_GEB_id WHERE docent.DOC_id = $docentid";
               $result = mysqli_query($con, $query);
               $index = 0;
+              $actief = null;
               while ($row = mysqli_fetch_array($result)) {
-                  array_push($sessies, ["index" => $index, "values" => ["SES_id" => $row['SES_id'],"SES_naam" => $row['SES_naam'], "SES_eindtijd" => $row['SES_eindtijd'], "SES_actief" => $row['SES_actief'], "SES_vak_id" => $row['SES_vak_id'],
+                  if ($row['SES_actief'] == 1) {
+                      $actief = "Online";
+                  } else {
+                      $actief = "Offline";
+                  }
+                  array_push($sessies, ["index" => $index, "values" => ["SES_id" => $row['SES_id'],"SES_naam" => $row['SES_naam'], "SES_eindtijd" => $row['SES_eindtijd'], "SES_actief" => $actief, "SES_vak_id" => $row['SES_vak_id'],
                     "VAK_naam" => $row['VAK_naam'], "SDO_docent_id" => $row['SDO_docent_id'], "DOC_id" => $row['DOC_id'], "DOC_naam" => $row['GEB_naam'], "DOC_voornaam" => $row['GEB_voornaam']]]);
                   $index++;
               }
