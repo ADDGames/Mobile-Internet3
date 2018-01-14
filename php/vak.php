@@ -44,8 +44,7 @@
       //checken of $tabel 'docent/student' is (anders gebruiker)
       if ($table === 'vakstudent' && $function !== 'getallforvak') {
           die('{"error":"wrong function","status":"fail"}');
-      }
-      elseif ($table === 'vakdocent' && $function !== 'getallforvak'){
+      } elseif ($table === 'vakdocent' && $function !== 'getallforvak') {
           die('{"error":"wrong function","status":"fail"}');
       }
   }
@@ -56,55 +55,53 @@
   if (!$con) {
       die('{"error":"Connection failed","mysqlError":"' . json_encode($con -> error) .'","status":"fail"}');
   } else {
-    if ($table === 'vakstudent') {
-        if ($function === 'getallforvak') {
-          $studentid = null;
-          $sessies = [];
-          if (isset($_POST['id'])) {
-              $studentid = $_POST['id'];
-              if ($studentid === "") {
+      if ($table === 'vakstudent') {
+          if ($function === 'getallforvak') {
+              $studentid = null;
+              $sessies = [];
+              if (isset($_POST['id'])) {
+                  $studentid = $_POST['id'];
+                  if ($studentid === "") {
+                      die('{"error":"missing data","status":"fail"}');
+                  }
+              } else {
                   die('{"error":"missing data","status":"fail"}');
               }
-          } else {
-              die('{"error":"missing data","status":"fail"}');
-          }
-          $query = "SELECT SES_id, SES_naam, SES_eindtijd, SES_actief, SES_vak_id, VAK_naam, SST_student_id, STU_id, GEB_naam, GEB_voornaam FROM sessie INNER JOIN sessie_student on sessie_student.SST_sessie_id = sessie.SES_id INNER JOIN student on sessie_student.SST_student_id = student.STU_id INNER JOIN vak on sessie.SES_vak_id = vak.VAK_id INNER JOIN gebruiker on gebruiker.GEB_id = student.STU_GEB_id WHERE student.STU_id = $studentid";
-          $result = mysqli_query($con, $query);
-          $index = 0;
-          while ($row = mysqli_fetch_array($result)) {
-              array_push($sessies, ["index" => $index, "values" => ["SES_id" => $row['SES_id'],"SES_naam" => $row['SES_naam'], "SES_eindtijd" => $row['SES_eindtijd'], "SES_actief" => $row['SES_actief'], "SES_vak_id" => $row['SES_vak_id'],
+              $query = "SELECT sessie.SES_id, sessie.SES_naam, sessie.SES_eindtijd, sessie.SES_actief, sessie.SES_vak_id, vak.VAK_naam, sessie_student.SST_student_id, student.STU_id, gebruiker.GEB_naam, gebruiker.GEB_voornaam FROM sessie INNER JOIN sessie_student on sessie_student.SST_sessie_id = sessie.SES_id INNER JOIN student on sessie_student.SST_student_id = student.STU_id INNER JOIN vak on sessie.SES_vak_id = vak.VAK_id INNER JOIN gebruiker on gebruiker.GEB_id = student.STU_GEB_id WHERE student.STU_id = $studentid";
+              $result = mysqli_query($con, $query);
+              $index = 0;
+              while ($row = mysqli_fetch_array($result)) {
+                  array_push($sessies, ["index" => $index, "values" => ["SES_id" => $row['SES_id'],"SES_naam" => $row['SES_naam'], "SES_eindtijd" => $row['SES_eindtijd'], "SES_actief" => $row['SES_actief'], "SES_vak_id" => $row['SES_vak_id'],
               "VAK_naam" => $row['VAK_naam'], "SST_student_id" => $row['SST_student_id'], "STU_id" => $row['STU_id'], "Stu_naam" => $row['GEB_naam'], "Stu_voornaam" => $row['GEB_voornaam']]]);
-              $index++;
+                  $index++;
+              }
+              mysqli_free_result($result);
+              mysqli_close($con);
+              die('{"data":'.json_encode($sessies).',"status":"ok"}');
           }
-          mysqli_free_result($result);
-          mysqli_close($con);
-          die('{"data":'.json_encode($sessies).',"status":"ok"}');
-        }
-      }
-  /* elseif ($table === 'vakdocent') {
+      } elseif ($table === 'vakdocent') {
           if ($function === 'getallforvak') {
-            $docentid = null;
-            $sessies = [];
-            if (isset($_POST['id'])) {
-                $docentid = $_POST['id'];
-                if ($docentid === "") {
-                    die('{"error":"missing data","status":"fail"}');
-                }
-            } else {
-                die('{"error":"missing data","status":"fail"}');
-            }
-            $query = "SELECT SES_id, SES_naam, SES_eindtijd, SES_actief, SES_vak_id, VAK_naam, SDO_docent_id, DOC_id, .GEB_naam, GEB_voornaam FROM sessie INNER JOIN sessie_docent on .SDO_sessie_id = SES_id INNER JOIN docent on SDO_docent_id = DOC_id INNER JOIN vak on SES_vak_id = VAK_id INNER JOIN gebruiker on GEB_id = DOC_GEB_id WHERE DOC_id = $docentid";
-            $result = mysqli_query($con, $query);
-            $index = 0;
-            while ($row = mysqli_fetch_array($result)) {
-                array_push($sessies, ["index" => $index, "values" => ["SES_id" => $row['SES_id'],"SES_naam" => $row['SES_naam'], "SES_eindtijd" => $row['SES_eindtijd'], "SES_actief" => $row['SES_actief'], "SES_vak_id" => $row['SES_vak_id'],
-                "VAK_naam" => $row['VAK_naam'], "SDO_docent_id" => $row['SDO_docent_id'], "DOC_id" => $row['DOC_id'], "DOC_naam" => $row['GEB_naam'], "DOC_voornaam" => $row['GEB_voornaam']]]);
-                $index++;
-            }
-            mysqli_free_result($result);
-            mysqli_close($con);
-            die('{"data":'.json_encode($sessies).',"status":"ok"}');
-
+              $docentid = null;
+              $sessies = [];
+              if (isset($_POST['id'])) {
+                  $docentid = $_POST['id'];
+                  if ($docentid === "") {
+                      die('{"error":"missing data","status":"fail"}');
+                  }
+              } else {
+                  die('{"error":"missing data","status":"fail"}');
+              }
+              $query = "SELECT sessie.SES_id, sessie.SES_naam, sessie.SES_eindtijd, sessie.SES_actief, sessie.SES_vak_id, vak.VAK_naam, sessie_docent.SDO_docent_id, docent.DOC_id, gebruiker.GEB_naam, gebruiker.GEB_voornaam FROM sessie INNER JOIN sessie_docent on sessie_docent.SDO_sessie_id = sessie.SES_id INNER JOIN docent on sessie_docent.SDO_docent_id = docent.DOC_id INNER JOIN vak on sessie.SES_vak_id = vak.VAK_id INNER JOIN gebruiker on gebruiker.GEB_id = docent.DOC_GEB_id WHERE docent.DOC_id = $docentid";
+              $result = mysqli_query($con, $query);
+              $index = 0;
+              while ($row = mysqli_fetch_array($result)) {
+                  array_push($sessies, ["index" => $index, "values" => ["SES_id" => $row['SES_id'],"SES_naam" => $row['SES_naam'], "SES_eindtijd" => $row['SES_eindtijd'], "SES_actief" => $row['SES_actief'], "SES_vak_id" => $row['SES_vak_id'],
+                    "VAK_naam" => $row['VAK_naam'], "SDO_docent_id" => $row['SDO_docent_id'], "DOC_id" => $row['DOC_id'], "DOC_naam" => $row['GEB_naam'], "DOC_voornaam" => $row['GEB_voornaam']]]);
+                  $index++;
+              }
+              mysqli_free_result($result);
+              mysqli_close($con);
+              die('{"data":'.json_encode($sessies).',"status":"ok"}');
           }
-        }*/
+      }
   }
