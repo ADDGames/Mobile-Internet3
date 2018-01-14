@@ -11,7 +11,7 @@
 
 
   //-----variabelen vullen uit POST Request-----
-  //check if input-file niets op heeft gehaald of een leeg veld heeft ingevoerd per variabele
+    //check if input-file niets op heeft gehaald of een leeg veld heeft ingevoerd per variabele
   if ($function === null || $function === '') {
       //check of POST Request van 'function' niet leeg is (isset == is ingevuld)
       if (isset($_POST['function'])) {
@@ -38,16 +38,8 @@
       }
   } else {
       //checken of $tabel 1 van de gekozen tabellen is
-      if ($table !== 'gebruiker') {
-          die('{"error":"wrong table","status":"fail"}');
-      }
-      //checken of $tabel 'docent/student' is (anders gebruiker)
-      if ($table === 'vakdocent' && $function !== 'getallfromdocent') {
-          die('{"error":"wrong function","status":"fail"}');
-      } elseif ($table === 'vakstudent') {
-          if ($function !== 'getallfromstudent' && $function !== 'getallstudentenfromvak' && $function !== 'getallallfromVak') {
-              die('{"error":"wrong function","status":"fail"}');
-          }
+      if ($table !== 'vak' || $function !== 'addvak') {
+          die('{"error":"wrong table or function","status":"fail"}');
       }
   }
   //-----connection maken met server (hosting)-----
@@ -57,34 +49,27 @@
   if (!$con) {
       die('{"error":"Connection failed","mysqlError":"' . json_encode($con -> error) .'","status":"fail"}');
   } else {
-      if ($function === 'nieuweleerling' && $table === 'gebruiker') {
-          if (isset($_POST['username']) && isset($_POST['naam']) && isset($_POST['voornaam']) && isset($_POST['wachtwoord']) && isset($_POST['email']) && isset($_POST['code'])) {
+      if ($table === 'vak' && $function === 'addvak') {
+          $VAK_naam = null;
+          $DOC_id = null;
+          //check of POST Request van alle variabelen niet leeg zijn
+          if (isset($_POST['VAK_naam']) && isset($_POST['DOC_id'])) {
               //variabelen vullen met POST Request
-              $GEB_username = $_POST['username'];
-              $GEB_naam = $_POST['naam'];
-              $GEB_voornaam = $_POST['voornaam'];
-              $GEB_wachtwoord = $_POST['wachtwoord'];
-              $GEB_email = $_POST['email'];
-              $DOC_code = $_POST['code'];
+              $VAK_naam = $_POST['VAK_naam'];
+              $DOC_id = $_POST['DOC_id'];
               //checken of variabelen niet leeg zijn
-              if ($GEB_username === "" || $GEB_naam === "" || $GEB_voornaam === "" || $GEB_wachtwoord === "" || $GEB_email === "" || $DOC_code === "") {
+              if ($VAK_naam === "" || $DOC_id === "") {
                   die('{"error":"missing data","status":"fail"}');
               }
           } else {
               die('{"error":"missing data","status":"fail"}');
           }
-          $query = "SELECT STU_id FROM gebruiker WHERE GEB_naam = $naam and GEB_voornaam = $voornaam" ;
-          $stuid = $query;
+          $query = "INSERT INTO `vak` (`VAK_naam`) VALUES ('$VAK_naam')";
           $result = mysqli_query($con, $query);
-          $matchFound = mysql_num_rows($result) > 0 ? 'Y' : 'N';
-          if ($matchFound === 'N') {
-              $result = "Student niet gevonden";
-          } elseif ($matchFound === 'Y') {
-              $query = "INSERT INTO `vak_student` ( `VAS_student_id`, `VAS_vak_id`) VALUES ('$GEB_username','$GEB_naam')";
-              $result = mysqli_query($con, $query);
-          }
-          mysqli_free_result($result);
+          $VAK_id = $con -> insert_id;
+          $query = "INSERT INTO `vakdocent`(`VDO_docent_id`, `VDO_vak_id`) VALUES ($DOC_id,$VAK_id)";
+          $con->query($query);
           mysqli_close($con);
-          die('{"data":'.json_encode($result).',"status":"ok"}');
+          die('{"data":"ok","message":"Record added successfully","status":"ok"}');
       }
   }

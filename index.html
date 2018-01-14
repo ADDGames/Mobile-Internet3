@@ -1,295 +1,324 @@
 <!DOCTYPE html>
 <html>
-
-<head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no, minimal-ui">
-    <meta name="apple-mobile-web-app-capable" content="yes">
-    <meta name="apple-mobile-web-app-status-bar-style" content="black">
-    <title>Then ? me!</title>
-    <!-- Path to Framework7 Library CSS-->
-    <link rel="stylesheet" href="css/framework7.ios.min.css">
-    <link rel="stylesheet" href="css/framework7.ios.colors.min.css">
-    <link rel="stylesheet" href="css/framework7-icons.css">
-    <!-- Path to your custom app styles-->
-    <link rel="stylesheet" href="css/my-app.css">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-</head>
-<body>
-    <!-- Status bar overlay for fullscreen mode-->
-    <div class="statusbar-overlay"></div>
-    <!-- Panels overlay-->
-    <div class="panel-overlay"></div>
-    <!-- Left panel with reveal effect-->
-    <div class="panel panel-left panel-reveal">
-        <div class="content-block">
-            <div class="content-block-title">Links naar pagina's</div>
-            <div class="list-block">
-                <ul>
-                    <li>
-                        <a href="STU_Vakken.html" class="item-link">
-                            <div class="item-content">
-                                <div class="item-inner">
-                                    <div class="item-title">Stu_Vakken</div>
-                                </div>
-                            </div>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="STU_Vak.html" class="item-link">
-                            <div class="item-content">
-                                <div class="item-inner">
-                                    <div class="item-title">Stu_Vak X</div>
-                                </div>
-                            </div>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="STU_Sessie.html" class="item-link">
-                            <div class="item-content">
-                                <div class="item-inner">
-                                    <div class="item-title">Stu_Sessie X</div>
-                                </div>
-                            </div>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="STU_Quiz.html" class="item-link">
-                            <div class="item-content">
-                                <div class="item-inner">
-                                    <div class="item-title">Stu_Quiz X</div>
-                                </div>
-                            </div>
-                        </a>
-                    </li>
-                </ul>
-                <ul>
-                    <li>
-                        <a href="DOC_Vakken.html" class="item-link">
-                            <div class="item-content">
-                                <div class="item-inner">
-                                    <div class="item-title">Doc_Vakken</div>
-                                </div>
-                            </div>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="DOC_Vak.html" class="item-link">
-                            <div class="item-content">
-                                <div class="item-inner">
-                                    <div class="item-title">Doc_Vak X</div>
-                                </div>
-                            </div>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="DOC_Sessie.html" class="item-link">
-                            <div class="item-content">
-                                <div class="item-inner">
-                                    <div class="item-title">Doc_Sessie X</div>
-                                </div>
-                            </div>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="DOC_Quiz.html" class="item-link">
-                            <div class="item-content">
-                                <div class="item-inner">
-                                    <div class="item-title">Doc_Quiz X</div>
-                                </div>
-                            </div>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="DOC_NieuweQuiz.html" class="item-link">
-                            <div class="item-content">
-                                <div class="item-inner">
-                                    <div class="item-title">Doc_NieuweQuiz</div>
-                                </div>
-                            </div>
-                        </a>
-                    </li>
-                </ul>
-            </div>
-        </div>
-    </div>
-    <!-- Views-->
-    <div class="views">
-        <!-- Your main view, should have "view-main" class-->
-        <div class="view view-main">
-            <!-- Top Navbar-->
-            <div class="navbar">
-                <div class="navbar-inner">
-                    <div class="left"> <a href="#" class="link icon-only open-panel"> <i class="icon icon-bars"></i></a> </div>
-                    <div class="center">Then Question me!</div>
-                </div>
-            </div>
-            <!-- Pages, because we need fixed-through navbar and toolbar, it has additional appropriate classes-->
-            <div class="pages navbar-through toolbar-through">
-                <!-- Page, data-page contains page name-->
-                <div data-page="index" class="page">
-                    <!-- Scrollable page content-->
-                    <div class="page-content">
-                        <div class="content-block-title">Welkom bij 'Then Question me!'</div>
-                        <div class="content-block">
-                            <div class="content-block-inner">
-                                <p>Deze app is ontworpen voor de communicatie tussen de leerkracht en leerlingen eenvoudiger te maken tijdens de lessen. Vraag live vragen en test je zelfkennis op dit platform aan de hand van Quizes.</p>
-                                <p>Login of registreer gratis.</p>
-                            </div>
-                        </div>
-                        <div class="content-block-title"></div>
-                        <div class="list-block">
-                            <ul>
-                                <li>
-                                    <a href="#" class="item-link open-login-screen">
-                                        <div class="item-content">
-                                            <div class="item-inner">
-                                                <div class="item-title center"><a id="login-button" href="#" class="open-popup" data-popup="#login">Login</a></div>
-                                            </div>
-                                        </div>
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="#" class="item-link">
-                                        <div class="item-content">
-                                            <div class="item-inner"> <a id="signup-button" href="#" class="open-popup" data-popup="#signup">Registreer</a> </div>
-                                        </div>
-                                    </a>
-                                </li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <!-- Bottom Toolbar-->
-            <div class="toolbar toolbar-bottom"> </div>
-        </div>
-    </div>
-    <div class="popup popup-signup login-screen" id="login">
-        <div class="view">
-            <div class="pages">
-                <div class="page">
-                    <div class="page-content login-screen-content">
-                        <div class="login-screen-title">Then question me</div>
-                        <form id="form-login">
-                            <div class="list-block">
-                                <ul>
-                                    <li class="item-content">
-                                        <div class="item-inner">
-                                            <div class="item-title label">Gebruikersnaam</div>
-                                            <div class="item-input"> <input id="login-gebruikersnaam" type="text" name="username" placeholder="Uw gebruikersnaam"> </div>
-                                        </div>
-                                    </li>
-                                    <li class="item-content">
-                                        <div class="item-inner">
-                                            <div class="item-title label">Wachtwoord</div>
-                                            <div class="item-input"> <input id="login-wachtwoord" type="password" name="password" placeholder="Uw wachtwoord"> </div>
-                                        </div>
-                                    </li>
-                                </ul>
-                            </div>
-                            <div class="list-block">
-                                <ul>
-                                    <li><a id="signInbutton" class="item-link list-button">Sign In</a></li>
-                                </ul>
-                                <div class="list-block-label">
-                                    <p>New member? Sign in for free!</p> <a href="#" class="open-popup" data-popup="#signup">Nieuw lid</a>
-                                    <p><a href="#" class="close-login-screen">Sluit Login scherm</a></p>
-                                </div>
-                            </div>
-                        </form>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    <div id="signup" class="popup popup-signup login-screen">
-        <div class="view">
-            <div class="pages">
-                <div class="page">
-                    <div class="page-content login-screen-content">
-                        <div class="login-screen-title">Then question me</div>
-                        <form id="form-registreer">
-                            <div class="list-block">
-                                <ul>
-                                    <li class="item-content">
-                                        <div class="item-inner">
-                                            <div class="item-title label">Naam</div>
-                                            <div class="item-input"> <input id="signup-naam" type="text" name="username" placeholder="Uw naam"> </div>
-                                        </div>
-                                    </li>
-                                    <li class="item-content">
-                                        <div class="item-inner">
-                                            <div class="item-title label">Achternaam</div>
-                                            <div class="item-input"> <input id="signup-achternaam" type="text" name="username" placeholder="Uw achternaam"> </div>
-                                        </div>
-                                    </li>
-                                    <li class="item-content">
-                                        <div class="item-inner">
-                                            <div class="item-title label">E-mail</div>
-                                            <div class="item-input"> <input id="signup-email" type="text" name="username" placeholder="Uw e-mail"> </div>
-                                        </div>
-                                    </li>
-                                    <li class="item-content">
-                                        <div class="item-inner">
-                                            <div class="item-title label">Gebruikersnaam</div>
-                                            <div class="item-input"> <input id="signup-gebruikersnaam" type="text" name="username" placeholder="Uw Gebruikersnaam"> </div>
-                                        </div>
-                                    </li>
-                                    <li class="item-content">
-                                        <div class="item-inner">
-                                            <div class="item-title label">Wachtwoord</div>
-                                            <div class="item-input"> <input id="signup-wachtwoord1" type="password" name="password" placeholder="Uw wachtwoord"> </div>
-                                        </div>
-                                    </li>
-                                    <li class="item-content">
-                                        <div class="item-inner">
-                                            <div class="item-title label">Bevestig wachtwoord</div>
-                                            <div class="item-input"> <input id="signup-wachtwoord2" type="password" name="password" placeholder="Uw wachtwoord"> </div>
-                                        </div>
-
-                                </li>
-                                <li>
-                                  <div class="item-content">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no, minimal-ui">
+        <meta name="apple-mobile-web-app-capable" content="yes">
+        <meta name="apple-mobile-web-app-status-bar-style" content="black">
+        <title>Then ? me!</title>
+        <!-- Path to Framework7 Library CSS-->
+        <link rel="stylesheet" href="css/framework7.ios.min.css">
+        <link rel="stylesheet" href="css/framework7.ios.colors.min.css">
+        <link rel="stylesheet" href="css/framework7-icons.css">
+        <!-- Path to your custom app styles-->
+        <link rel="stylesheet" href="css/my-app.css">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    </head>
+    <body>
+        <!-- Status bar overlay for fullscreen mode-->
+        <div class="statusbar-overlay"></div>
+        <!-- Panels overlay-->
+        <div class="panel-overlay"></div>
+        <!-- Left panel with reveal effect-->
+        <div class="panel panel-left panel-reveal">
+            <div class="content-block">
+                <div class="content-block-title">Links naar pagina's</div>
+                <div class="list-block">
+                    <ul>
+                        <li>
+                            <a href="STU_Vakken.html" class="item-link">
+                                <div class="item-content">
                                     <div class="item-inner">
-                                      <div class="item-title label">Leerkracht</div>
-                                      <div class="item-input">
-                                        <label class="label-switch">
-                                          <input id="signupLeerkracht" type="checkbox">
-                                          <div class="checkbox"></div>
-                                        </label>
-                                      </div>
+                                        <div class="item-title">Stu_Vakken</div>
                                     </div>
-                                  </li>
-                                  <li class="item-content">
-                                      <div class="item-inner">
-                                          <div class="item-title label">Code</div>
-                                          <div class="item-input">
-                                              <input id="LeerkrachtCode" type="password" name="code" placeholder="Leerkracht code" disabled>
-                                          </div>
-                                      </div>
-                                  </li>
-                            </ul>
+                                </div>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="STU_Vak.html" class="item-link">
+                                <div class="item-content">
+                                    <div class="item-inner">
+                                        <div class="item-title">Stu_Vak X</div>
+                                    </div>
+                                </div>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="STU_Sessie.html" class="item-link">
+                                <div class="item-content">
+                                    <div class="item-inner">
+                                        <div class="item-title">Stu_Sessie X</div>
+                                    </div>
+                                </div>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="STU_Quiz.html" class="item-link">
+                                <div class="item-content">
+                                    <div class="item-inner">
+                                        <div class="item-title">Stu_Quiz X</div>
+                                    </div>
+                                </div>
+                            </a>
+                        </li>
+                    </ul>
+                    <ul>
+                        <li>
+                            <a href="DOC_Vakken.html" class="item-link">
+                                <div class="item-content">
+                                    <div class="item-inner">
+                                        <div class="item-title">Doc_Vakken</div>
+                                    </div>
+                                </div>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="DOC_Vak.html" class="item-link">
+                                <div class="item-content">
+                                    <div class="item-inner">
+                                        <div class="item-title">Doc_Vak X</div>
+                                    </div>
+                                </div>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="DOC_Sessie.html" class="item-link">
+                                <div class="item-content">
+                                    <div class="item-inner">
+                                        <div class="item-title">Doc_Sessie X</div>
+                                    </div>
+                                </div>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="DOC_Quiz.html" class="item-link">
+                                <div class="item-content">
+                                    <div class="item-inner">
+                                        <div class="item-title">Doc_Quiz X</div>
+                                    </div>
+                                </div>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="DOC_NieuweQuiz.html" class="item-link">
+                                <div class="item-content">
+                                    <div class="item-inner">
+                                        <div class="item-title">Doc_NieuweQuiz</div>
+                                    </div>
+                                </div>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <!-- Views-->
+        <div class="views">
+            <!-- Your main view, should have "view-main" class-->
+            <div class="view view-main">
+                <!-- Top Navbar-->
+                <div class="navbar">
+                    <div class="navbar-inner">
+                        <div class="left">
+                            <a href="#" class="link icon-only open-panel">
+                                <i class="icon icon-bars"></i>
+                            </a>
                         </div>
-
-                            <div class="list-block">
-                                <ul>
-                                    <li><a id="registreerbutton" href="#" class="item-link list-button get-storage-data">Registreer</a></li>
-                                </ul>
-                                <div class="list-block-label">
-                                    <p><a href="#" class="close-login-screen">Sluit scherm</a></p>
+                        <div class="center">Then Question me!</div>
+                    </div>
+                </div>
+                <!-- Pages, because we need fixed-through navbar and toolbar, it has additional appropriate classes-->
+                <div class="pages navbar-through toolbar-through">
+                    <!-- Page, data-page contains page name-->
+                    <div data-page="index" class="page">
+                        <!-- Scrollable page content-->
+                        <div class="page-content">
+                            <div class="content-block-title">Welkom bij 'Then Question me!'</div>
+                            <div class="content-block">
+                                <div class="content-block-inner">
+                                    <p>Deze app is ontworpen voor de communicatie tussen de leerkracht en leerlingen eenvoudiger te maken tijdens de lessen. Vraag live vragen en test je zelfkennis op dit platform aan de hand van Quizes.</p>
+                                    <p>Login of registreer gratis.</p>
                                 </div>
                             </div>
-                        </form>
+                            <div class="content-block-title"></div>
+                            <div class="list-block">
+                                <ul>
+                                    <li>
+                                        <a href="#" class="item-link open-login-screen">
+                                            <div class="item-content">
+                                                <div class="item-inner">
+                                                    <div class="item-title center">
+                                                        <a id="login-button" href="#" class="open-popup" data-popup="#login">Login</a>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="#" class="item-link">
+                                            <div class="item-content">
+                                                <div class="item-inner">
+                                                    <a id="signup-button" href="#" class="open-popup" data-popup="#signup">Registreer</a>
+                                                </div>
+                                            </div>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- Bottom Toolbar-->
+                <div class="toolbar toolbar-bottom"></div>
+            </div>
+        </div>
+        <div class="popup popup-signup login-screen" id="login">
+            <div class="view">
+                <div class="pages">
+                    <div class="page">
+                        <div class="page-content login-screen-content">
+                            <div class="login-screen-title">Then question me</div>
+                            <form id="form-login">
+                                <div class="list-block">
+                                    <ul>
+                                        <li class="item-content">
+                                            <div class="item-inner">
+                                                <div class="item-title label">Gebruikersnaam</div>
+                                                <div class="item-input">
+                                                    <input id="login-gebruikersnaam" type="text" name="username" placeholder="Uw gebruikersnaam">
+                                                </div>
+                                            </div>
+                                        </li>
+                                        <li class="item-content">
+                                            <div class="item-inner">
+                                                <div class="item-title label">Wachtwoord</div>
+                                                <div class="item-input">
+                                                    <input id="login-wachtwoord" type="password" name="password" placeholder="Uw wachtwoord">
+                                                </div>
+                                            </div>
+                                        </li>
+                                    </ul>
+                                </div>
+                                <div class="list-block">
+                                    <ul>
+                                        <li>
+                                            <a id="signInbutton" class="item-link list-button">Sign In</a>
+                                        </li>
+                                    </ul>
+                                    <div class="list-block-label">
+                                        <p>New member? Sign in for free!</p>
+                                        <a href="#" class="open-popup" data-popup="#signup">Nieuw lid</a>
+                                        <p>
+                                            <a href="#" class="close-login-screen">Sluit Login scherm</a>
+                                        </p>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
-    <!-- Path to Framework7 Library JS-->
-    <script type="text/javascript" src="js/framework7.min.js"></script>
-    <!-- Path to your app js-->
-    <script type="text/javascript" src="js/my-app.js"></script>
-</body>
-
-</html>
+        <div id="signup" class="popup popup-signup login-screen">
+            <div class="view">
+                <div class="pages">
+                    <div class="page">
+                        <div class="page-content login-screen-content">
+                            <div class="login-screen-title">Then question me</div>
+                            <form id="form-registreer">
+                                <div class="list-block">
+                                    <ul>
+                                        <li class="item-content">
+                                            <div class="item-inner">
+                                                <div class="item-title label">Naam</div>
+                                                <div class="item-input">
+                                                    <input id="signup-naam" type="text" name="username" placeholder="Uw naam">
+                                                </div>
+                                            </div>
+                                        </li>
+                                        <li class="item-content">
+                                            <div class="item-inner">
+                                                <div class="item-title label">Achternaam</div>
+                                                <div class="item-input">
+                                                    <input id="signup-achternaam" type="text" name="username" placeholder="Uw achternaam">
+                                                </div>
+                                            </div>
+                                        </li>
+                                        <li class="item-content">
+                                            <div class="item-inner">
+                                                <div class="item-title label">E-mail</div>
+                                                <div class="item-input">
+                                                    <input id="signup-email" type="text" name="username" placeholder="Uw e-mail">
+                                                </div>
+                                            </div>
+                                        </li>
+                                        <li class="item-content">
+                                            <div class="item-inner">
+                                                <div class="item-title label">Gebruikersnaam</div>
+                                                <div class="item-input">
+                                                    <input id="signup-gebruikersnaam" type="text" name="username" placeholder="Uw Gebruikersnaam">
+                                                </div>
+                                            </div>
+                                        </li>
+                                        <li class="item-content">
+                                            <div class="item-inner">
+                                                <div class="item-title label">Wachtwoord</div>
+                                                <div class="item-input">
+                                                    <input id="signup-wachtwoord1" type="password" name="password" placeholder="Uw wachtwoord">
+                                                </div>
+                                            </div>
+                                        </li>
+                                        <li class="item-content">
+                                            <div class="item-inner">
+                                                <div class="item-title label">Bevestig wachtwoord</div>
+                                                <div class="item-input">
+                                                    <input id="signup-wachtwoord2" type="password" name="password" placeholder="Uw wachtwoord">
+                                                </div>
+                                            </div>
+                                        </li>
+                                        <li>
+                                            <div class="item-content">
+                                                <div class="item-inner">
+                                                    <div class="item-title label">Leerkracht</div>
+                                                    <div class="item-input">
+                                                        <label class="label-switch">
+                                                            <input id="signupLeerkracht" type="checkbox">
+                                                            <div class="checkbox"></div>
+                                                        </label>
+                                                    </div>
+                                                </div>
+                                            </li>
+                                            <li class="item-content">
+                                                <div class="item-inner">
+                                                    <div class="item-title label">Code</div>
+                                                    <div class="item-input">
+                                                        <input id="LeerkrachtCode" type="password" name="code" placeholder="Leerkracht code" disabled="disabled">
+                                                    </div>
+                                                </div>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                    <div class="list-block">
+                                        <ul>
+                                            <li>
+                                                <a id="registreerbutton" href="#" class="item-link list-button get-storage-data">Registreer</a>
+                                            </li>
+                                        </ul>
+                                        <div class="list-block-label">
+                                            <p>
+                                                <a href="#" class="close-login-screen">Sluit scherm</a>
+                                            </p>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- Path to Framework7 Library JS-->
+            <script type="text/javascript" src="js/framework7.min.js"></script>
+            <!-- Path to your app js-->
+            <script type="text/javascript" src="js/my-app.js"></script>
+        </body>
+    </html>

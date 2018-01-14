@@ -97,7 +97,7 @@
               } else {
                   die('{"error":"missing data","status":"fail"}');
               }
-              $query = "SELECT sessie.SES_id, sessie.SES_naam, sessie.SES_eindtijd, sessie.SES_actief, sessie.SES_vak_id, vak.VAK_naam, sessie_docent.SDO_docent_id, docent.DOC_id, gebruiker.GEB_naam, gebruiker.GEB_voornaam FROM sessie INNER JOIN sessie_docent on sessie_docent.SDO_sessie_id = sessie.SES_id INNER JOIN docent on sessie_docent.SDO_docent_id = docent.DOC_id INNER JOIN vak on sessie.SES_vak_id = vak.VAK_id INNER JOIN gebruiker on gebruiker.GEB_id = docent.DOC_GEB_id WHERE docent.DOC_id = $docentid";
+              $query = "SELECT sessie.SES_id, sessie.SES_naam, sessie.SES_eindtijd, sessie.SES_actief, sessie.SES_vak_id, vak.VAK_naam, docent.DOC_id, gebruiker.GEB_naam, gebruiker.GEB_voornaam FROM sessie INNER JOIN vak on sessie.SES_vak_id = vak.VAK_id INNER JOIN vakdocent on vak.VAK_id = vakdocent.VDO_vak_id INNER JOIN docent on vakdocent.VDO_docent_id = docent.DOC_id INNER JOIN gebruiker on gebruiker.GEB_id = docent.DOC_GEB_id WHERE docent.DOC_id = $docentid";
               $result = mysqli_query($con, $query);
               $index = 0;
               $actief = null;
@@ -108,7 +108,7 @@
                       $actief = "Offline";
                   }
                   array_push($sessies, ["index" => $index, "values" => ["SES_id" => $row['SES_id'],"SES_naam" => $row['SES_naam'], "SES_eindtijd" => $row['SES_eindtijd'], "SES_actief" => $actief, "SES_vak_id" => $row['SES_vak_id'],
-                    "VAK_naam" => $row['VAK_naam'], "SDO_docent_id" => $row['SDO_docent_id'], "DOC_id" => $row['DOC_id'], "DOC_naam" => $row['GEB_naam'], "DOC_voornaam" => $row['GEB_voornaam']]]);
+                    "VAK_naam" => $row['VAK_naam'], "DOC_id" => $row['DOC_id'], "DOC_naam" => $row['GEB_naam'], "DOC_voornaam" => $row['GEB_voornaam']]]);
                   $index++;
               }
               mysqli_free_result($result);

@@ -226,6 +226,19 @@
                 mysqli_free_result($result);
                 mysqli_close($con);
                 die('{"data":'.json_encode($student).',"status":"ok"}');
+            } elseif ($function === "getall") {
+                //voordefinitie van de nodige variabelen
+                $studenten = [];
+                $query = "SELECT student.STU_id,gebruiker.GEB_naam,gebruiker.GEB_voornaam FROM student INNER JOIN gebruiker ON student.STU_GEB_id = gebruiker.GEB_id";
+                $result = mysqli_query($con, $query);
+                $index = 0;
+                while ($row = mysqli_fetch_array($result)) {
+                    array_push($studenten, ["index" => $index, "values" => ["STU_id" => $row['STU_id'],"GEB_naam" => $row['GEB_naam'],"GEB_voornaam" => $row['GEB_voornaam']]]);
+                    $index++;
+                }
+                mysqli_free_result($result);
+                mysqli_close($con);
+                die('{"data":'.json_encode($studenten).',"status":"ok"}');
             }
         }
         //checken of $table voor gebruiker is (login via de gebruikerstabel en checken of het een student of een docent is)
