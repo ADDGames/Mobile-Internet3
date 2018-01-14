@@ -87,17 +87,17 @@
           }
       } elseif ($table === 'vakdocent') {
           if ($function === 'getallforvak') {
-              $docentid = null;
+              $VAK_id = null;
               $sessies = [];
               if (isset($_POST['id'])) {
-                  $docentid = $_POST['id'];
-                  if ($docentid === "") {
+                  $VAK_id = $_POST['id'];
+                  if ($VAK_id === "") {
                       die('{"error":"missing data","status":"fail"}');
                   }
               } else {
                   die('{"error":"missing data","status":"fail"}');
               }
-              $query = "SELECT sessie.SES_id, sessie.SES_naam, sessie.SES_eindtijd, sessie.SES_actief, sessie.SES_vak_id, vak.VAK_naam, docent.DOC_id, gebruiker.GEB_naam, gebruiker.GEB_voornaam FROM sessie INNER JOIN vak on sessie.SES_vak_id = vak.VAK_id INNER JOIN vakdocent on vak.VAK_id = vakdocent.VDO_vak_id INNER JOIN docent on vakdocent.VDO_docent_id = docent.DOC_id INNER JOIN gebruiker on gebruiker.GEB_id = docent.DOC_GEB_id WHERE docent.DOC_id = $docentid";
+              $query = "SELECT sessie.SES_id, sessie.SES_code, sessie.SES_naam, sessie.SES_eindtijd, sessie.SES_actief, sessie.SES_vak_id, vak.VAK_naam FROM sessie INNER JOIN vak on sessie.SES_vak_id = vak.VAK_id INNER JOIN vakdocent on vak.VAK_id = vakdocent.VDO_vak_id INNER JOIN docent on vakdocent.VDO_docent_id = docent.DOC_id INNER JOIN gebruiker on gebruiker.GEB_id = docent.DOC_GEB_id WHERE vak.VAK_id = $VAK_id";
               $result = mysqli_query($con, $query);
               $index = 0;
               $actief = null;
@@ -107,8 +107,8 @@
                   } else {
                       $actief = "Offline";
                   }
-                  array_push($sessies, ["index" => $index, "values" => ["SES_id" => $row['SES_id'],"SES_naam" => $row['SES_naam'], "SES_eindtijd" => $row['SES_eindtijd'], "SES_actief" => $actief, "SES_vak_id" => $row['SES_vak_id'],
-                    "VAK_naam" => $row['VAK_naam'], "DOC_id" => $row['DOC_id'], "DOC_naam" => $row['GEB_naam'], "DOC_voornaam" => $row['GEB_voornaam']]]);
+                  array_push($sessies, ["index" => $index, "values" => ["SES_id" => $row['SES_id'],"SES_code" => $row['SES_code'],"SES_naam" => $row['SES_naam'], "SES_eindtijd" => $row['SES_eindtijd'], "SES_actief" => $actief, "SES_vak_id" => $row['SES_vak_id'],
+                    "VAK_naam" => $row['VAK_naam']]]);
                   $index++;
               }
               mysqli_free_result($result);

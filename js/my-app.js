@@ -154,7 +154,7 @@ myApp.onPageInit('DOC_vak', function (page) {
 	var inputdata = {
 		function: 'getallforvak',
 		table: 'vakdocent',
-		id: gegevens.user.docentid
+		id: gegevens.vak.id
 	}
 	$.post({
 		url: "php/vak.php",
@@ -168,7 +168,31 @@ myApp.onPageInit('DOC_vak', function (page) {
 					if(response.data[index].values.SES_actief === 1) {
 						response.data[index].values.SES_actief === Online;
 					}
-					$('#lijstsessiedocent').append("<li id='" + response.data[index].values.SES_id + "'><a href='STU_Sessie.html' class='item-link item-content'><div class='item-inner'><div class='item-title-row'><div class='item-title'>" + response.data[index].values.SES_naam + "</div><div class='item-after'>" + response.data[index].values.SES_actief + "</div></div><div class='item-subtitle'>Kort info?</div><div class='item-text'>Gesloten op: " + response.data[index].values.SES_eindtijd + "</div></div></a></li>");
+					$('#lijstsessiedocent').append("<li id='" + response.data[index].values.SES_id + "' class='doorklikkenDOC'><a id='" + response.data[index].values.SES_naam + "' href='DOC_Sessie.html' class='item-link item-content'><div class='item-inner'><div class='item-title-row'><div class='item-title'>" + response.data[index].values.SES_naam + "</div><div class='item-after'>" + response.data[index].values.SES_actief + "</div></div><div class='item-subtitle'>CODE: " + response.data[index].values.SES_code + "</div><div class='item-text'>Gesloten op: " + response.data[index].values.SES_eindtijd + "</div></div></a></li>");
+				});
+				$$(".doorklikkenDOC").on('click', function () {
+					gegevens.vak.sessieid = $(this).attr('id');
+					gegevens.vak.sessienaam = $(this).children("a").attr('id');
+					console.log(JSON.stringify(gegevens));
+					var inputdata = {
+						function: 'getallstudentenfromvak',
+						table: 'vakstudent',
+						id: gegevens.vak.sessieid
+					}
+					$.post({
+						url: "php/vakken.php",
+						data: inputdata,
+						success: function (response) {
+							response = JSON.parse(response);
+							if(response.status === "fail") {
+								alert(response.error);
+							} else {
+								$.each(response.data, function (index) {
+									$('#lijstleerlingen').append("<li><div class='item-content'><div class='item-inner'><div class='item-title'>" + response.data[index].values.Naam + " " + response.data[index].values.Voornaam + "</div></div></div></li>");
+								});
+							}
+						}
+					});
 				});
 			}
 		}
@@ -187,6 +211,32 @@ myApp.onPageInit('DOC_vak', function (page) {
 					alert(response.error);
 				} else {
 					gegevens.studenten = response.data;
+				}
+			},
+			error: function (jqXHR, textStatus, errorThrown) {
+				alert(jqXHR);
+				alert(textStatus);
+				alert(errorThrown);
+			}
+		});
+	});
+	$$('#voegsessietoebtn').on('click', function () {
+		var inputdata = {
+			function: 'add',
+			table: 'sessie',
+			SES_naam: $("#sessienaam").val(),
+			VAK_id: gegevens.vak.id
+		};
+		$.post({
+			url: "php/addsessie.php",
+			data: inputdata,
+			success: function (response) {
+				console.log(response);
+				response = JSON.parse(response);
+				if(response.status === "fail") {
+					alert(response.error);
+				} else {
+					// add rij in vak_student met de id van deze leerling en het id van het vak
 				}
 			},
 			error: function (jqXHR, textStatus, errorThrown) {
@@ -315,9 +365,7 @@ $$('#registreerbutton').on('click', function () {
 				response = JSON.parse(response);
 				if(response.status === "fail") {
 					alert(response.error);
-				} else {
-					alert('ok');
-				}
+				} else {}
 			},
 			error: function (jqXHR, textStatus, errorThrown) {
 				alert(jqXHR);
@@ -345,7 +393,6 @@ $$('#voegleerlingtoe').on('click', function () {
 			if(response.status === "fail") {
 				alert(response.error);
 			} else {
-				alert('ok');
 				// add rij in vak_student met de id van deze leerling en het id van het vak
 			}
 		},
