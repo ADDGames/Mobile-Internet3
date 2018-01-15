@@ -246,6 +246,7 @@ myApp.onPageInit('DOC_vak', function (page) {
 				} else {
 					$("#lijstleerlingen").empty();
 					studenten();
+					myApp.closeModal();
 				}
 			},
 			error: function (jqXHR, textStatus, errorThrown) {
