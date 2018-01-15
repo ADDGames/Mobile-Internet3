@@ -1,74 +1,74 @@
 <!-- We don't need full layout here, because this page will be parsed with Ajax-->
 <!-- Top Navbar-->
 <div class="navbar">
-    <div class="navbar-inner">
-        <div class="left">
-            <a href="#" class="back link">
+  <div class="navbar-inner">
+    <div class="left">
+      <a href="#" class="back link">
                 <i class="icon icon-back"></i>
                 <span>Back</span></a>
-        </div>
-        <div class="center">Then Question me!</div>
-        <div class="right">
-            <a href="Profile.html">
+    </div>
+    <div class="center">Then Question me!</div>
+    <div class="right">
+      <a href="Profile.html">
                 <i class="icon f7-icons">settings</i>
             </a>
-        </div>
     </div>
+  </div>
 </div>
 <div class="pages">
-    <!-- Page, data-page contains page name-->
-    <div data-page="STU_vak" class="page">
-        <!-- Scrollable page content-->
-        <div class="page-content">
-            <div id="TitelVakStudent" class="content-block-title"></div>
-            <div class="content-block">
-                <!-- Buttons row as tabs controller -->
-                <div class="buttons-row">
-                    <!-- Link to 1st tab, active -->
-                    <a href="#tab1" class="tab-link active button">Sessies</a>
-                    <!-- Link to 2nd tab -->
-                    <a href="#tab2" class="tab-link button">Quizes</a>
+  <!-- Page, data-page contains page name-->
+  <div data-page="STU_vak" class="page">
+    <!-- Scrollable page content-->
+    <div class="page-content">
+      <div id="TitelVakStudent" class="content-block-title"></div>
+      <div class="content-block">
+        <!-- Buttons row as tabs controller -->
+        <div class="buttons-row">
+          <!-- Link to 1st tab, active -->
+          <a href="#tab1" class="tab-link active button">Sessies</a>
+          <!-- Link to 2nd tab -->
+          <a href="#tab2" class="tab-link button">Quizes</a>
+        </div>
+      </div>
+      <!-- Tabs, tabs wrapper -->
+      <div class="tabs">
+        <!-- Tab 1, active by default -->
+        <div id="tab1" class="tab active">
+          <div class="card">
+            <div class="card-content">
+              <div class="card-content-inner">
+                <div class="list-block media-list">
+                  <ul id="lijstsessiestudent"></ul>
                 </div>
+              </div>
             </div>
-            <!-- Tabs, tabs wrapper -->
-            <div class="tabs">
-                <!-- Tab 1, active by default -->
-                <div id="tab1" class="tab active">
-                    <div class="card">
-                        <div class="card-content">
-                            <div class="card-content-inner">
-                                <div class="list-block media-list">
-                                    <ul id="lijstsessiestudent"></ul>
-                                </div>
-                            </div>
+          </div>
+          <div class="content-block-title">Sessie Toevoegen
+          </div>
+          <div class="content-block inset">
+            <div class="content-block-inner">
+              <form id="my-form" class="list-block">
+                <ul>
+                  <li>
+                    <div class="item-content">
+                      <div class="item-media">
+                        <i class="icon f7-icons">lock</i>
+                      </div>
+                      <div class="item-inner">
+                        <div class="item-input">
+                          <input id="codesessie" type="text" placeholder="Sessie-code">
                         </div>
+                      </div>
                     </div>
-                    <div class="content-block-title">Sessie Toevoegen
-                    </div>
-                    <div class="content-block inset">
-                        <div class="content-block-inner">
-                            <form id="my-form" class="list-block">
-                                <ul>
-                                    <li>
-                                        <div class="item-content">
-                                            <div class="item-media">
-                                                <i class="icon f7-icons">lock</i>
-                                            </div>
-                                            <div class="item-inner">
-                                                <div class="item-input">
-                                                    <input id="codesessie" type="text" placeholder="Sessie-code">
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </li>
-                                </ul>
-                            </form>
-                            <a href="#" id="codesessiebtn" class="button button-raised">Deelenemen</a>
-                        </div>
-                    </div>
-                </div>
-                <!-- Tab 2 -->
-                <div id="tab2" class="tab">
+                  </li>
+                </ul>
+              </form>
+              <a href="#" id="codesessiebtn" class="button button-raised">Deelenemen</a>
+            </div>
+          </div>
+        </div>
+        <!-- Tab 2 -->
+        <!--  <div id="tab2" class="tab">
                     <div class="card">
                         <div class="card-content">
                             <div class="card-content-inner">
@@ -153,8 +153,8 @@
                             </div>
                         </div>
                     </div>
-                </div>
-            </div>
-        </div>
+                </div>-->
+      </div>
     </div>
+  </div>
 </div>
