@@ -60,6 +60,28 @@ myApp.onPageInit('STU_vakken', function (page) {
 		}
 	});
 });
+
+function studenten() {
+	var inputdata = {
+		function: 'getallstudentenfromvak',
+		table: 'vakstudent',
+		id: gegevens.vak.id
+	}
+	$.post({
+		url: "http://mobile3.atwebpages.com/php/vakken.php",
+		data: inputdata,
+		success: function (response) {
+			response = JSON.parse(response);
+			if(response.status === "fail") {
+				alert(response.error);
+			} else {
+				$.each(response.data, function (index) {
+					$('#lijstleerlingen').append("<li><div class='item-content'><div class='item-inner'><div class='item-title'>" + response.data[index].values.Naam + " " + response.data[index].values.Voornaam + "</div></div></div></li>");
+				});
+			}
+		}
+	});
+}
 myApp.onPageInit('DOC_vakken', function (page) {
 	function init() {
 		var inputdata = {
@@ -80,25 +102,7 @@ myApp.onPageInit('DOC_vakken', function (page) {
 					});
 					$$(".doorklikken").on('click', function () {
 						gegevens.vak.id = $(this).attr('id');
-						var inputdata = {
-							function: 'getallstudentenfromvak',
-							table: 'vakstudent',
-							id: gegevens.vak.id
-						}
-						$.post({
-							url: "http://mobile3.atwebpages.com/php/vakken.php",
-							data: inputdata,
-							success: function (response) {
-								response = JSON.parse(response);
-								if(response.status === "fail") {
-									alert(response.error);
-								} else {
-									$.each(response.data, function (index) {
-										$('#lijstleerlingen').append("<li><div class='item-content'><div class='item-inner'><div class='item-title'>" + response.data[index].values.Naam + " " + response.data[index].values.Voornaam + "</div></div></div></li>");
-									});
-								}
-							}
-						});
+						studenten();
 					});
 				}
 			}
@@ -224,20 +228,24 @@ myApp.onPageInit('DOC_vak', function (page) {
 		});
 	}
 	init();
-	$$('#addleerlingbtn').on('click', function () {
+	$$('#voegleerlingtoe').on('click', function () {
 		var inputdata = {
-			function: 'getall',
-			table: 'student'
+			function: 'add',
+			table: 'vakstudent',
+			vakid: gegevens.vak.id,
+			voornaam: $("#addleerlingvoornaam").val(),
+			naam: $("#addleerlingnaam").val()
 		};
 		$.post({
-			url: "http://mobile3.atwebpages.com/php/users.php",
+			url: "http://mobile3.atwebpages.com/php/addvakstudent.php",
 			data: inputdata,
 			success: function (response) {
 				response = JSON.parse(response);
 				if(response.status === "fail") {
 					alert(response.error);
 				} else {
-					gegevens.studenten = response.data;
+					$("#lijstleerlingen").empty();
+					studenten();
 				}
 			},
 			error: function (jqXHR, textStatus, errorThrown) {
