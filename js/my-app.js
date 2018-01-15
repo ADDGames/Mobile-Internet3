@@ -24,7 +24,7 @@ myApp.onPageInit('STU_vakken', function (page) {
 		id: gegevens.user.studentid
 	}
 	$.post({
-		url: "mobile3.atwebpages.com/php/vakken.php",
+		url: "http://mobile3.atwebpages.com/php/vakken.php",
 		data: inputdata,
 		success: function (response) {
 			response = JSON.parse(response);
@@ -42,7 +42,7 @@ myApp.onPageInit('STU_vakken', function (page) {
 						id: gegevens.vak.id
 					}
 					$.post({
-						url: "mobile3.atwebpages.com/php/vakken.php",
+						url: "http://mobile3.atwebpages.com/php/vakken.php",
 						data: inputdata,
 						success: function (response) {
 							response = JSON.parse(response);
@@ -68,7 +68,7 @@ myApp.onPageInit('DOC_vakken', function (page) {
 			id: gegevens.user.docentid
 		}
 		$.post({
-			url: "mobile3.atwebpages.com/php/vakken.php",
+			url: "http://mobile3.atwebpages.com/php/vakken.php",
 			data: inputdata,
 			success: function (response) {
 				response = JSON.parse(response);
@@ -86,7 +86,7 @@ myApp.onPageInit('DOC_vakken', function (page) {
 							id: gegevens.vak.id
 						}
 						$.post({
-							url: "mobile3.atwebpages.com/php/vakken.php",
+							url: "http://mobile3.atwebpages.com/php/vakken.php",
 							data: inputdata,
 							success: function (response) {
 								response = JSON.parse(response);
@@ -113,7 +113,7 @@ myApp.onPageInit('DOC_vakken', function (page) {
 			VAK_naam: $("#nieuweklastxt").val()
 		}
 		$.post({
-			url: "mobile3.atwebpages.com/php/addvak.php",
+			url: "http://mobile3.atwebpages.com/php/addvak.php",
 			data: inputdata,
 			success: function (response) {
 				response = JSON.parse(response);
@@ -136,7 +136,7 @@ myApp.onPageInit('STU_vak', function (page) {
 			id: gegevens.user.studentid
 		}
 		$.post({
-			url: "mobile3.atwebpages.com/php/vak.php",
+			url: "http://mobile3.atwebpages.com/php/vak.php",
 			data: inputdata,
 			success: function (response) {
 				response = JSON.parse(response);
@@ -160,7 +160,7 @@ myApp.onPageInit('STU_vak', function (page) {
 			code: $("#codesessie").val()
 		}
 		$.post({
-			url: "mobile3.atwebpages.com/php/addsessiestudent.php",
+			url: "http://mobile3.atwebpages.com/php/addsessiestudent.php",
 			data: inputdata,
 			success: function (response) {
 				response = JSON.parse(response);
@@ -182,7 +182,7 @@ myApp.onPageInit('DOC_vak', function (page) {
 			id: gegevens.vak.id
 		}
 		$.post({
-			url: "mobile3.atwebpages.com/php/vak.php",
+			url: "http://mobile3.atwebpages.com/php/vak.php",
 			data: inputdata,
 			success: function (response) {
 				response = JSON.parse(response);
@@ -204,7 +204,7 @@ myApp.onPageInit('DOC_vak', function (page) {
 							id: gegevens.vak.sessieid
 						}
 						$.post({
-							url: "mobile3.atwebpages.com/php/vakken.php",
+							url: "http://mobile3.atwebpages.com/php/vakken.php",
 							data: inputdata,
 							success: function (response) {
 								response = JSON.parse(response);
@@ -229,7 +229,7 @@ myApp.onPageInit('DOC_vak', function (page) {
 			table: 'student'
 		};
 		$.post({
-			url: "mobile3.atwebpages.com/php/users.php",
+			url: "http://mobile3.atwebpages.com/php/users.php",
 			data: inputdata,
 			success: function (response) {
 				response = JSON.parse(response);
@@ -254,7 +254,7 @@ myApp.onPageInit('DOC_vak', function (page) {
 			VAK_id: gegevens.vak.id
 		};
 		$.post({
-			url: "mobile3.atwebpages.com/php/addsessie.php",
+			url: "http://mobile3.atwebpages.com/php/addsessie.php",
 			data: inputdata,
 			success: function (response) {
 				response = JSON.parse(response);
@@ -297,7 +297,7 @@ $('#signInbutton').on('click', function () {
 		wachtwoord: $("#login-wachtwoord").val()
 	};
 	$.post({
-		url: "mobile3.atwebpages.com/php/users.php",
+		url: "http://mobile3.atwebpages.com/php/users.php",
 		data: inputdata,
 		success: function (response) {
 			response = JSON.parse(response);
@@ -314,7 +314,7 @@ $('#signInbutton').on('click', function () {
 						id: gegevens.user.userid
 					}
 					$.post({
-						url: "mobile3.atwebpages.com/php/users.php",
+						url: "http://mobile3.atwebpages.com/php/users.php",
 						data: inputdata,
 						success: function (response) {
 							response = JSON.parse(response);
@@ -340,7 +340,7 @@ $('#signInbutton').on('click', function () {
 						id: gegevens.user.userid
 					}
 					$.post({
-						url: "mobile3.atwebpages.com/php/users.php",
+						url: "http://mobile3.atwebpages.com/php/users.php",
 						data: inputdata,
 						success: function (response) {
 							response = JSON.parse(response);
@@ -386,7 +386,7 @@ $$('#registreerbutton').on('click', function () {
 			inputdata['code'] = $("#LeerkrachtCode").val();
 		}
 		$.post({
-			url: "mobile3.atwebpages.com/php/users.php",
+			url: "http://mobile3.atwebpages.com/php/users.php",
 			data: inputdata,
 			success: function (response) {
 				response = JSON.parse(response);
@@ -416,7 +416,7 @@ $$('#voegleerlingtoe').on('click', function () {
 		vakid: $("").id(),
 	};
 	$.post({
-		url: "mobile3.atwebpages.com/php/Addleerling.php",
+		url: "http://mobile3.atwebpages.com/php/Addleerling.php",
 		data: inputdata,
 		success: function (response) {
 			response = JSON.parse(response);
