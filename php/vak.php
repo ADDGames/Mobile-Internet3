@@ -58,16 +58,18 @@
       if ($table === 'vakstudent') {
           if ($function === 'getallforvak') {
               $studentid = null;
+              $vakid = null;
               $sessies = [];
-              if (isset($_POST['id'])) {
+              if (isset($_POST['id']) && isset($_POST['vakid'])) {
                   $studentid = $_POST['id'];
-                  if ($studentid === "") {
+                  $vakid = $_POST['vakid'];
+                  if ($studentid === "" || $vakid === "") {
                       die('{"error":"missing data","status":"fail"}');
                   }
               } else {
                   die('{"error":"missing data","status":"fail"}');
               }
-              $query = "SELECT sessie.SES_id, sessie.SES_naam, sessie.SES_eindtijd, sessie.SES_actief, sessie.SES_vak_id, vak.VAK_naam, sessie_student.SST_student_id, student.STU_id, gebruiker.GEB_naam, gebruiker.GEB_voornaam FROM sessie INNER JOIN sessie_student on sessie_student.SST_sessie_id = sessie.SES_id INNER JOIN student on sessie_student.SST_student_id = student.STU_id INNER JOIN vak on sessie.SES_vak_id = vak.VAK_id INNER JOIN gebruiker on gebruiker.GEB_id = student.STU_GEB_id WHERE student.STU_id = $studentid";
+              $query = "SELECT sessie.SES_id, sessie.SES_naam, sessie.SES_eindtijd, sessie.SES_actief, sessie.SES_vak_id, vak.VAK_naam, sessie_student.SST_student_id, student.STU_id, gebruiker.GEB_naam, gebruiker.GEB_voornaam FROM sessie INNER JOIN sessie_student on sessie_student.SST_sessie_id = sessie.SES_id INNER JOIN student on sessie_student.SST_student_id = student.STU_id INNER JOIN vak on sessie.SES_vak_id = vak.VAK_id INNER JOIN gebruiker on gebruiker.GEB_id = student.STU_GEB_id WHERE student.STU_id = $studentid AND vak.VAK_id = $vakid";
               $result = mysqli_query($con, $query);
               $index = 0;
               $actief = null;

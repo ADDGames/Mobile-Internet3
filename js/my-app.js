@@ -133,7 +133,8 @@ myApp.onPageInit('STU_vak', function (page) {
 		var inputdata = {
 			function: 'getallforvak',
 			table: 'vakstudent',
-			id: gegevens.user.studentid
+			id: gegevens.user.studentid,
+			vakid: gegevens.vak.id
 		}
 		$.post({
 			url: "http://mobile3.atwebpages.com/php/vak.php",
