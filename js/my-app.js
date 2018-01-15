@@ -129,74 +129,100 @@ myApp.onPageInit('DOC_vakken', function (page) {
 	});
 });
 myApp.onPageInit('STU_vak', function (page) {
-	var inputdata = {
-		function: 'getallforvak',
-		table: 'vakstudent',
-		id: gegevens.user.studentid
-	}
-	$.post({
-		url: "php/vak.php",
-		data: inputdata,
-		success: function (response) {
-			response = JSON.parse(response);
-			if(response.status === "fail") {
-				alert(response.error);
-			} else {
-				$.each(response.data, function (index) {
-					alert(response);
-					$('#lijstsessiestudent').append("<li id='" + response.data[index].values.SES_id + "'><a href='STU_Sessie.html' class='item-link item-content'><div class='item-inner'><div class='item-title-row'><div class='item-title'>" + response.data[index].values.SES_naam + "</div><div class='item-after'>" + response.data[index].values.SES_actief + "</div></div><div class='item-subtitle'>Kort info?</div><div class='item-text'>Gesloten op: " + response.data[index].values.SES_eindtijd + "</div></div></a></li>");
-				});
-			}
+	function init() {
+		var inputdata = {
+			function: 'getallforvak',
+			table: 'vakstudent',
+			id: gegevens.user.studentid
 		}
-	});
+		$.post({
+			url: "php/vak.php",
+			data: inputdata,
+			success: function (response) {
+				response = JSON.parse(response);
+				if(response.status === "fail") {
+					alert(response.error);
+				} else {
+					$.each(response.data, function (index) {
+						$('#lijstsessiestudent').append("<li id='" + response.data[index].values.SES_id + "'><a href='STU_Sessie.html' class='item-link item-content'><div class='item-inner'><div class='item-title-row'><div class='item-title'>" + response.data[index].values.SES_naam + "</div><div class='item-after'>" + response.data[index].values.SES_actief + "</div></div><div class='item-subtitle'>Kort info?</div><div class='item-text'>Gesloten op: " + response.data[index].values.SES_eindtijd + "</div></div></a></li>");
+					});
+				}
+			}
+		});
+	}
+	init();
+	$("#codesessiebtn").on("click", function () {
+		var inputdata = {
+			function: 'add',
+			table: 'sessiestudent',
+			studentid: gegevens.user.studentid,
+			vakid: gegevens.vak.id,
+			code: $("#codesessie").val()
+		}
+		$.post({
+			url: "php/addsessiestudent.php",
+			data: inputdata,
+			success: function (response) {
+				response = JSON.parse(response);
+				if(response.status === "fail") {
+					alert(response.error);
+				} else {
+					$('#lijstsessiestudent').empty();
+					init();
+				}
+			}
+		});
+	})
 });
 myApp.onPageInit('DOC_vak', function (page) {
-	var inputdata = {
-		function: 'getallforvak',
-		table: 'vakdocent',
-		id: gegevens.vak.id
-	}
-	$.post({
-		url: "php/vak.php",
-		data: inputdata,
-		success: function (response) {
-			response = JSON.parse(response);
-			if(response.status === "fail") {
-				alert(response.error);
-			} else {
-				$.each(response.data, function (index) {
-					if(response.data[index].values.SES_actief === 1) {
-						response.data[index].values.SES_actief === Online;
-					}
-					$('#lijstsessiedocent').append("<li id='" + response.data[index].values.SES_id + "' class='doorklikkenDOC'><a id='" + response.data[index].values.SES_naam + "' href='DOC_Sessie.html' class='item-link item-content'><div class='item-inner'><div class='item-title-row'><div class='item-title'>" + response.data[index].values.SES_naam + "</div><div class='item-after'>" + response.data[index].values.SES_actief + "</div></div><div class='item-subtitle'>CODE: " + response.data[index].values.SES_code + "</div><div class='item-text'>Gesloten op: " + response.data[index].values.SES_eindtijd + "</div></div></a></li>");
-				});
-				$$(".doorklikkenDOC").on('click', function () {
-					gegevens.vak.sessieid = $(this).attr('id');
-					gegevens.vak.sessienaam = $(this).children("a").attr('id');
-					console.log(JSON.stringify(gegevens));
-					var inputdata = {
-						function: 'getallstudentenfromvak',
-						table: 'vakstudent',
-						id: gegevens.vak.sessieid
-					}
-					$.post({
-						url: "php/vakken.php",
-						data: inputdata,
-						success: function (response) {
-							response = JSON.parse(response);
-							if(response.status === "fail") {
-								alert(response.error);
-							} else {
-								$.each(response.data, function (index) {
-									$('#lijstleerlingen').append("<li><div class='item-content'><div class='item-inner'><div class='item-title'>" + response.data[index].values.Naam + " " + response.data[index].values.Voornaam + "</div></div></div></li>");
-								});
-							}
-						}
-					});
-				});
-			}
+	function init() {
+		var inputdata = {
+			function: 'getallforvak',
+			table: 'vakdocent',
+			id: gegevens.vak.id
 		}
-	});
+		$.post({
+			url: "php/vak.php",
+			data: inputdata,
+			success: function (response) {
+				response = JSON.parse(response);
+				if(response.status === "fail") {
+					alert(response.error);
+				} else {
+					$.each(response.data, function (index) {
+						if(response.data[index].values.SES_actief === 1) {
+							response.data[index].values.SES_actief === Online;
+						}
+						$('#lijstsessiedocent').append("<li id='" + response.data[index].values.SES_id + "' class='doorklikkenDOC'><a id='" + response.data[index].values.SES_naam + "' href='DOC_Sessie.html' class='item-link item-content'><div class='item-inner'><div class='item-title-row'><div class='item-title'>" + response.data[index].values.SES_naam + "</div><div class='item-after'>" + response.data[index].values.SES_actief + "</div></div><div class='item-subtitle'>CODE: " + response.data[index].values.SES_code + "</div><div class='item-text'>Gesloten op: " + response.data[index].values.SES_eindtijd + "</div></div></a></li>");
+					});
+					$$(".doorklikkenDOC").on('click', function () {
+						gegevens.vak.sessieid = $(this).attr('id');
+						gegevens.vak.sessienaam = $(this).children("a").attr('id');
+						var inputdata = {
+							function: 'getallstudentenfromvak',
+							table: 'vakstudent',
+							id: gegevens.vak.sessieid
+						}
+						$.post({
+							url: "php/vakken.php",
+							data: inputdata,
+							success: function (response) {
+								response = JSON.parse(response);
+								if(response.status === "fail") {
+									alert(response.error);
+								} else {
+									$.each(response.data, function (index) {
+										$('#lijstleerlingen').append("<li><div class='item-content'><div class='item-inner'><div class='item-title'>" + response.data[index].values.Naam + " " + response.data[index].values.Voornaam + "</div></div></div></li>");
+									});
+								}
+							}
+						});
+					});
+				}
+			}
+		});
+	}
+	init();
 	$$('#addleerlingbtn').on('click', function () {
 		var inputdata = {
 			function: 'getall',
@@ -231,12 +257,13 @@ myApp.onPageInit('DOC_vak', function (page) {
 			url: "php/addsessie.php",
 			data: inputdata,
 			success: function (response) {
-				console.log(response);
 				response = JSON.parse(response);
 				if(response.status === "fail") {
 					alert(response.error);
 				} else {
-					// add rij in vak_student met de id van deze leerling en het id van het vak
+					$("#lijstsessiedocent").empty();
+					init();
+					myApp.closeModal("#sessiepop");
 				}
 			},
 			error: function (jqXHR, textStatus, errorThrown) {
@@ -343,7 +370,7 @@ $('#signInbutton').on('click', function () {
 	});
 });
 $$('#registreerbutton').on('click', function () {
-	if($("#signup-wachtwoord1").val() = $("#signup-wachtwoord2").val()) {
+	if($("#signup-wachtwoord1").val() == $("#signup-wachtwoord2").val()) {
 		var inputdata = {
 			function: 'add',
 			voornaam: $("#signup-naam").val(),
@@ -352,7 +379,7 @@ $$('#registreerbutton').on('click', function () {
 			email: $("#signup-email").val(),
 			wachtwoord: $("#signup-wachtwoord1").val()
 		};
-		if($$("#signupLeerkracht").prop('disabled')) {
+		if($("#LeerkrachtCode").prop('disabled')) {
 			inputdata['table'] = 'student';
 		} else {
 			inputdata['table'] = 'docent';
@@ -365,7 +392,10 @@ $$('#registreerbutton').on('click', function () {
 				response = JSON.parse(response);
 				if(response.status === "fail") {
 					alert(response.error);
-				} else {}
+				} else {
+					myApp.closeModal("#signup");
+					myApp.popup("#login");
+				}
 			},
 			error: function (jqXHR, textStatus, errorThrown) {
 				alert(jqXHR);

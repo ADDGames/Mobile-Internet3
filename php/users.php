@@ -103,7 +103,7 @@
                 $query = "INSERT INTO `gebruiker` (`GEB_username`, `GEB_naam`, `GEB_voornaam`, `GEB_wachtwoord`, `GEB_email`) VALUES ('$GEB_username','$GEB_naam','$GEB_voornaam','$GEB_wachtwoord','$GEB_email')";
                 $result = mysqli_query($con, $query);
                 $DOC_GEB_id = $con -> insert_id;
-                $query = "INSERT INTO `docent`(`DOC_gebruiker_id`, `DOC_COD_id`) VALUES ($DOC_GEB_id,$code_id)";
+                $query = "INSERT INTO `docent`(`DOC_GEB_id`, `DOC_COD_id`) VALUES ($DOC_GEB_id,$code_id)";
                 $con->query($query);
                 mysqli_close($con);
                 die('{"data":"ok","message":"Record added successfully","status":"ok"}');
